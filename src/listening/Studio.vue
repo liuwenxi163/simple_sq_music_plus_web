@@ -5,6 +5,7 @@ import userInfoStore from '../stores/user'
 import configInfoStore from '../stores/config'
 import { api, parseLyrics, formatTime, trackKey } from './api'
 import Icon from './Icon.vue'
+import { startPlayback } from './playback'
 import Artwork from './Artwork.vue'
 
 const user = userInfoStore(), config = configInfoStore(), route = useRoute(), router = useRouter()
@@ -89,7 +90,7 @@ async function play(t, list) {
     if (url.includes('.mpd') || url.startsWith('data:application/dash')) {
       const dashjs = await import('dashjs'); if (generation !== playGeneration) return
       dashPlayer = dashjs.MediaPlayer().create(); dashPlayer.initialize(audio.value, url, true)
-    } else { audio.value.src = url; audio.value.load(); await audio.value.play() }
+    } else await startPlayback(audio.value, url, { isCurrent: () => generation === playGeneration })
     prefs.value.recent = [trackKey(t), ...prefs.value.recent.filter(k => k !== trackKey(t))].slice(0, 100); persist()
     if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, album: t.album, artwork: t.coverUrl ? [{ src: new URL(t.coverUrl, location.origin).href }] : [] })
   } catch (e) { if (generation === playGeneration) { playing.value = false; error.value = e.name === 'NotAllowedError' ? '轻点播放，继续听歌' : e.message || '当前音频暂时无法播放'; toast(error.value) } } finally { if (generation === playGeneration) preparing.value = false }
