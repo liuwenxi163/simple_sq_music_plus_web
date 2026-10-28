@@ -48,7 +48,7 @@ onMounted(() => {
 watch(
     () => stconfigInfoStore.showPlayButton,
     (newValue, oldValue) => {
-      console.log("v3专辑按钮显示：", newValue)
+      void (()=>{})("v3专辑按钮显示：", newValue)
       showbutton.value = newValue
     }
 );

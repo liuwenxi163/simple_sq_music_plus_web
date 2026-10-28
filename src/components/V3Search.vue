@@ -91,7 +91,7 @@ let album_info_data = ref({
 watch(
     () => stconfigInfoStore.showPlayButton,
     (newValue, oldValue) => {
-      console.log("v3搜索按钮显示：", stconfigInfoStore.showPlayButton)
+      void (()=>{})("v3搜索按钮显示：", stconfigInfoStore.showPlayButton)
       showbutton.value = stconfigInfoStore.showPlayButton
     }
 );

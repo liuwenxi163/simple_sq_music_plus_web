@@ -36,9 +36,9 @@ const installPWA = () => {
     // 等待用户响应
     deferredPrompt.value.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
-        console.log('用户接受了PWA安装');
+        void (()=>{})('用户接受了PWA安装');
       } else {
-        console.log('用户拒绝了PWA安装');
+        void (()=>{})('用户拒绝了PWA安装');
       }
       // 重置 deferredPrompt 变量
       deferredPrompt.value = null;

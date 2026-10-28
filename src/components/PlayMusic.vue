@@ -162,9 +162,9 @@ const handleUpdateSliderValue = (value) => {
 const handleProgressChange = () => {
   // 计算实际时间并跳转
   const newTime = (sliderPercentage.value / 100) * store.totalTime
-  console.log("结束正在更新进度：" + sliderPercentage.value)
-  console.log("结束返回的值：" + sliderPercentage.value)
-  console.log("计算出的实际时间：" + newTime)
+  void (()=>{})("结束正在更新进度：" + sliderPercentage.value)
+  void (()=>{})("结束返回的值：" + sliderPercentage.value)
+  void (()=>{})("计算出的实际时间：" + newTime)
 
   // 直接调用Home.vue中的seek方法而不是仅仅更新store
   // 通过事件传递给Home.vue来执行实际的跳转操作

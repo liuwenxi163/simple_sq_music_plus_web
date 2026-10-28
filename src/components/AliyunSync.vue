@@ -55,12 +55,12 @@ const stepsStatus = computed(() => {
   // 获取每个配置的 remark - 从 configData 中查找
   const getRemark = (key) => {
     if (!configData.value || !Array.isArray(configData.value)) {
-      console.log('configData 为空:', configData.value);
+      void (()=>{})('configData 为空:', configData.value);
       return '';
     }
     const config = configData.value.find(item => item && item.configKey === key);
     const remark = (config && config.configRemark) ? config.configRemark : '';
-    console.log(`getRemark(${key}):`, remark);
+    void (()=>{})(`getRemark(${key}):`, remark);
     return remark;
   };
   
@@ -202,7 +202,7 @@ const loadAliyunConfig = async () => {
   loading.value = true;
   try {
     const value = await getAllSet();
-    console.log("获取全部设置:", value.data);
+    void (()=>{})("获取全部设置:", value.data);
     
     if (value.data.code === 200) {
       stconfigInfoStore.setData(value.data.data);
@@ -242,7 +242,7 @@ const loadAliyunConfig = async () => {
         backupDriveId.value = backupDriveIdConfig.configValue;
       } else {
         backupDriveId.value = '';
-        console.log('未找到 backup.drive_id');
+        void (()=>{})('未找到 backup.drive_id');
       }
       
       const resourceDriveIdConfig = aliyunConfig.value.find(item => item.configKey && item.configKey.includes('resource.drive_id'));
@@ -250,7 +250,7 @@ const loadAliyunConfig = async () => {
         resourceDriveId.value = resourceDriveIdConfig.configValue;
       } else {
         resourceDriveId.value = '';
-        console.log('未找到 resource.drive_id');
+        void (()=>{})('未找到 resource.drive_id');
       }
       
       const userNameConfig = aliyunConfig.value.find(item => item.configKey && item.configKey.includes('user.name'));
@@ -258,7 +258,7 @@ const loadAliyunConfig = async () => {
         userName.value = userNameConfig.configValue;
       } else {
         userName.value = '';
-        console.log('未找到 user.name');
+        void (()=>{})('未找到 user.name');
       }
       
       const userIdConfig = aliyunConfig.value.find(item => item.configKey && item.configKey.includes('user.id'));
@@ -266,7 +266,7 @@ const loadAliyunConfig = async () => {
         userId.value = userIdConfig.configValue;
       } else {
         userId.value = '';
-        console.log('未找到 user.id');
+        void (()=>{})('未找到 user.id');
       }
       
       // 获取头像和账号信息
@@ -275,7 +275,7 @@ const loadAliyunConfig = async () => {
         avatar.value = avatarConfig.configValue;
       } else {
         avatar.value = '';
-        console.log('未找到 avatar');
+        void (()=>{})('未找到 avatar');
       }
       
       const userInfoNameConfig = aliyunConfig.value.find(item => item.configKey && item.configKey.includes('user.info.name'));
@@ -283,7 +283,7 @@ const loadAliyunConfig = async () => {
         userInfoName.value = userInfoNameConfig.configValue;
       } else {
         userInfoName.value = '';
-        console.log('未找到 user.info.name');
+        void (()=>{})('未找到 user.info.name');
       }
       
       const nickNameConfig = aliyunConfig.value.find(item => item.configKey && item.configKey.includes('nick.name'));
@@ -291,7 +291,7 @@ const loadAliyunConfig = async () => {
         nickName.value = nickNameConfig.configValue;
       } else {
         nickName.value = '';
-        console.log('未找到 nick.name');
+        void (()=>{})('未找到 nick.name');
       }
       
       // 获取保存位置配置
@@ -329,7 +329,7 @@ const loadAliyunConfig = async () => {
         isOpen.value = false;
       }
       
-      console.log("用户信息汇总:", {
+      void (()=>{})("用户信息汇总:", {
         backupDriveId: backupDriveId.value,
         resourceDriveId: resourceDriveId.value,
         userName: userName.value,
@@ -339,9 +339,9 @@ const loadAliyunConfig = async () => {
         nickName: nickName.value
       });
       
-      console.log("阿里云盘配置:", aliyunConfig.value);
+      void (()=>{})("阿里云盘配置:", aliyunConfig.value);
       
-      console.log("阿里云盘配置:", aliyunConfig.value);
+      void (()=>{})("阿里云盘配置:", aliyunConfig.value);
       
       if (aliyunConfig.value.length === 0) {
         // 不显示任何提示
@@ -501,7 +501,7 @@ const getAuthUrl = async () => {
       
       authUrlValue.value = authUrl; // 显示 URL
       codeVerifierValue.value = codeVerifier; // 保存 code_verifier
-      console.log('授权 URL 已设置:', authUrlValue.value);
+      void (()=>{})('授权 URL 已设置:', authUrlValue.value);
       window.$message.success('授权链接已获取，请点击下方链接完成授权，然后将授权码填写到下方输入框中');
     } else {
       // 非 200 则提示 msg 中的内容
@@ -545,7 +545,7 @@ const verifyAuthCode = async () => {
       window.$message.success('授权成功！');
       authCode.value = ''; // 清空输入框
       await loadAliyunConfig(); // 重新加载配置
-      console.log('AccessToken 已设置:', accessTokenValue.value);
+      void (()=>{})('AccessToken 已设置:', accessTokenValue.value);
     } else {
       // 返回 code 500 失败则打印 msg 消息
       window.$message.error(value.data.msg || '授权码验证失败');
@@ -606,7 +606,7 @@ const checkLocationPath = async () => {
   savingLocation.value = true;
   try {
     const checkValue = await checkFolder(saveLocation.value.trim());
-    console.log('路径检查结果:', checkValue);
+    void (()=>{})('路径检查结果:', checkValue);
     
     if (checkValue.data.code === 200 && checkValue.data.data === true) {
       // 路径可用，询问是否同步歌曲
@@ -885,7 +885,7 @@ const loadTreeList = async () => {
       treeListData.value = convertToTreeData(rawData);
       // 计算总节点数
       treeListTotal.value = countTreeNodes(treeListData.value);
-      console.log('树状数据:', treeListData.value);
+      void (()=>{})('树状数据:', treeListData.value);
       window.$message.success(`查询成功，共 ${treeListTotal.value} 个节点`);
     } else {
       window.$message.error(value.data.msg || '查询失败');
@@ -961,7 +961,7 @@ const loadRootFolder = async () => {
       // 显示根目录内容
       currentFolderContents.value = treeListData.value;
       treeListTotal.value = countTreeNodes(treeListData.value);
-      console.log('根目录数据:', currentFolderContents.value);
+      void (()=>{})('根目录数据:', currentFolderContents.value);
     } else {
       window.$message.error(value.data.msg || '查询失败');
     }

@@ -18,7 +18,7 @@ const showAliyunSync = computed(() => {
   const aliyunShowConfig = stconfigInfoStore.data?.find(
     item => item.configKey === 'plug.aliyun.show'
   );
-  console.log('阿里云盘显示配置:', aliyunShowConfig);
+  void (()=>{})('阿里云盘显示配置:', aliyunShowConfig);
   // 如果配置不存在，默认显示；如果配置值为 false（字符串或布尔），则隐藏
   if (!aliyunShowConfig) return true;
   const value = aliyunShowConfig.configValue;
@@ -29,7 +29,7 @@ const showTrafficMonitoring = computed(() => {
   const trafficConfig = stconfigInfoStore.data?.find(
     item => item.configKey === 'system.show.traffic.monitoring'
   );
-  console.log('流量监控显示配置:', trafficConfig);
+  void (()=>{})('流量监控显示配置:', trafficConfig);
   // 如果配置不存在，默认显示；如果配置值为 false（字符串或布尔），则隐藏
   if (!trafficConfig) return true;
   const value = trafficConfig.configValue;

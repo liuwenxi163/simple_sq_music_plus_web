@@ -28,7 +28,7 @@ const configInfoStore = defineStore('configInfo', {
             this.data = data
             //找到播放按钮设置
             this.showPlayButton = this.data.find(item => item.configKey === 'system.show.play.url')?.configValue === 'true'
-            console.log('播放按钮是否显示',this.showPlayButton)
+            void (()=>{})('播放按钮是否显示',this.showPlayButton)
 
         },
         setOption(option) {
@@ -53,7 +53,7 @@ const configInfoStore = defineStore('configInfo', {
             this.motionPosition = position
         }
     },
-    persist: true,
+    persist: false,
 })
 
 export default configInfoStore

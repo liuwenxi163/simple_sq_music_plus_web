@@ -245,7 +245,7 @@ const handleProgressChange = () => {
 
 // 切换播放/暂停状态
 const togglePlay = () => {
-  console.log("切换播放状态")
+  void (()=>{})("切换播放状态")
   isFadingOut.value = true
   
   // 在淡出动画结束后切换播放状态
@@ -259,7 +259,7 @@ const togglePlay = () => {
 
 // 播放上一曲
 const playPrevious = () => {
-  console.log("播放上一曲")
+  void (()=>{})("播放上一曲")
   store.playPrevious()
   // 通知Home.vue播放上一曲
   window.dispatchEvent(new CustomEvent('mobile-player-previous'))
@@ -267,7 +267,7 @@ const playPrevious = () => {
 
 // 播放下一曲
 const playNext = () => {
-  console.log("播放下一曲")
+  void (()=>{})("播放下一曲")
   store.playNext()
   // 通知Home.vue播放下一曲
   window.dispatchEvent(new CustomEvent('mobile-player-next'))

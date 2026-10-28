@@ -89,7 +89,7 @@
 <!-- */-->
 <!--onBeforeMount(()=>{-->
 <!--  // selectOption().then(value => {-->
-<!--  //   console.log(value)-->
+<!--  //   void (()=>{})(value)-->
 <!--  //   nextTick(()=>{-->
 <!--  //     select_options.value = value.data.data;-->
 <!--  //   })-->

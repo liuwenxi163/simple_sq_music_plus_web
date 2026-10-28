@@ -24,4 +24,6 @@ dist-ssr
 *.sw?
 
 # Package lock files
-package-lock.json
+
+/release/
+__pycache__/

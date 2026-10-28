@@ -37,9 +37,9 @@ export default defineConfig({
         // 安装应用后显示的应用名
         name: "SqMusic",
         short_name: "SqMusic",
-        description: "SqMusicTool-下载工具",
-        theme_color: "#000000",
-        background_color: "#ffffff",
+        description: "音乐库、播放、下载与歌词",
+        theme_color: "#171c24",
+        background_color: "#171c24",
         display: "standalone",
         start_url: "/",
         // 至少配置一个图标

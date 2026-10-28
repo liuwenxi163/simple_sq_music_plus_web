@@ -18,7 +18,7 @@ let addMonitorRequest = ()=>{
     targetCover: parserUrlInfoData.value.cover
   }
 
-  console.log("提交数据:", monitorData)
+  void (()=>{})("提交数据:", monitorData)
   addMonitor(monitorData).then((value)=>{
     if (value.data.code !== 200) {
       window.$message.error(value.data.msg || "请求失败")
@@ -113,7 +113,7 @@ const closeModal = () => {
  * 处理卡片点击事件
  */
 const handleCardClick = (item) => {
-  console.log('点击卡片:', item)
+  void (()=>{})('点击卡片:', item)
   currentSelectedItem.value = item
   showDetailModal.value = true
 }
@@ -130,7 +130,7 @@ const closeDetailModal = () => {
  * 处理删除按钮点击事件
  */
 const handleDelete = (item) => {
-  console.log('删除:', item)
+  void (()=>{})('删除:', item)
   delListen(item.id).then((value) => {
     if (value.data.code !== 200) {
       window.$message.error(value.data.msg || "删除失败")

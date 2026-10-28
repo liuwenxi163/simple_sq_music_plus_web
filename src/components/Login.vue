@@ -37,7 +37,7 @@ const boxStyle = computed(() => {
 });
 
 let loginp =()=>{
-  console.log("开始登录")
+  void (()=>{})("开始登录")
   loginWeb(loginUsername.value,loginPassword.value)
 }
 let loginUsername = ref("");
@@ -71,7 +71,7 @@ onBeforeMount(()=>{
       router.replace({path :"/login"}).catch(err => {
         console.error('路由跳转失败:', err);
       });
-      console.log('用户未登录或登录已过期');
+      void (()=>{})('用户未登录或登录已过期');
     }
   }).catch((error)=>{
     router.replace({path :"/login"}).catch(err => {
@@ -86,16 +86,16 @@ onBeforeMount(()=>{
  * 登录
  */
 let loginWeb = (username,password)=>{
-  console.log("开始登录")
+  void (()=>{})("开始登录")
   login(username,password).then((value)=>{
     if(value.data.code===200){
-      console.log("登录token："+value.data.data.tokenValue)
-      console.log("登录Device："+value.data.data.loginDevice)
+      void (()=>{})("登录token："+value.data.data.tokenValue)
+      void (()=>{})("登录Device："+value.data.data.loginDevice)
       stuserInfoStore.setToken(value.data.data.tokenValue)
       stuserInfoStore.setLoginDevice(value.data.data.loginDevice)
       stuserInfoStore.setUserName(username)
       getAllSet().then((value)=>{
-        console.log("获取全部设置:"+value.data)
+        void (()=>{})("获取全部设置:"+value.data)
         if (value.data.code===200){
           stconfigInfoStore.setData(value.data.data)
         }else{
@@ -103,7 +103,7 @@ let loginWeb = (username,password)=>{
         }
       })
       getAllOption().then((value)=>{
-        console.log("获取的设置是：",value.data)
+        void (()=>{})("获取的设置是：",value.data)
         if (value.data.code===200){
           stconfigInfoStore.setOption(value.data.data)
         }else{

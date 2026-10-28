@@ -66,9 +66,9 @@ const installPWA = () => {
     // 等待用户响应
     deferredPrompt.value.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
-        console.log('用户接受了PWA安装');
+        void (()=>{})('用户接受了PWA安装');
       } else {
-        console.log('用户拒绝了PWA安装');
+        void (()=>{})('用户拒绝了PWA安装');
       }
       // 重置 deferredPrompt 变量
       deferredPrompt.value = null;
@@ -116,7 +116,7 @@ let refreshData= () => {
   systemConfig.value = []
   plugConfig.value = {};
   getAllSet().then((value)=>{
-    console.log("获取全部设置:"+value.data)
+    void (()=>{})("获取全部设置:"+value.data)
     if (value.data.code===200){
       stconfigInfoStore.setData(value.data.data)
       configData.value= stconfigInfoStore.data
@@ -142,15 +142,15 @@ let refreshData= () => {
           }
           if (item.configKey==="plug.qqvip.open"){
             qqvipPlugopen.value = item.configValue === "true";
-            console.log("plug.qqvip.open:"+item.configValue)
+            void (()=>{})("plug.qqvip.open:"+item.configValue)
           }
           if (item.configKey==="plug.kg.open"){
             kgPlugopen.value = item.configValue === "true";
-            console.log("plug.kg.open:"+item.configValue)
+            void (()=>{})("plug.kg.open:"+item.configValue)
           }
           if (item.configKey==="plug.kg.sign.begin-end.time"){
             kgbeginendtime.value = item.configValue;
-            console.log("plug.kg.sign.begin-end.time:"+item.configValue)
+            void (()=>{})("plug.kg.sign.begin-end.time:"+item.configValue)
           }
         }
         else{
@@ -162,7 +162,7 @@ let refreshData= () => {
     }
   })
   getAllOption().then((value)=>{
-    console.log("获取的设置是：",value.data)
+    void (()=>{})("获取的设置是：",value.data)
     if (value.data.code===200){
       stconfigInfoStore.setOption(value.data.data)
     }else{
@@ -200,7 +200,7 @@ let  closeDialog = ()=>{
 //打开弹窗
 let openModal =(item)=>{
   showModal.value=true
-  // console.log("item:"+JSON.stringify(item))
+  // void (()=>{})("item:"+JSON.stringify(item))
   tempModalTile.value = item.configName;
   tempModalRemark.value = item.configRemark;
   tempModalType.value= item.configType;
@@ -264,7 +264,7 @@ if (tempModalType==='select'){
     if(value.data.code===200){
       window.$message.success("修改成功!")
       getAllSet().then((value)=>{
-        // console.log("获取全部设置:"+value.data)
+        // void (()=>{})("获取全部设置:"+value.data)
         if (value.data.code===200){
           stconfigInfoStore.clearData()
           stconfigInfoStore.setData(value.data.data)
@@ -289,8 +289,8 @@ let clogout=() => {
       stuserInfoStore.clearUserInfo()
       stconfigInfoStore.clearData()
       // 清空cookie
-      console.log("Cookies.get('sqmusic'):"+Cookies.get('sqmusic'))
-      console.log("Cookies.get('token'):"+Cookies.get('token'))
+      void (()=>{})("Cookies.get('sqmusic'):"+Cookies.get('sqmusic'))
+      void (()=>{})("Cookies.get('token'):"+Cookies.get('token'))
       Cookies.set('sqmusic', '');
       Cookies.set('token', '');
       window.location.href="/"
@@ -321,7 +321,7 @@ let getqqvipqqQr=()=>{
  */
 let getQQVipQrCodeStatusc=()=>{
   getQQVipQrCodeStatus().then((value)=>{
-    console.log("获取的状态是：",value)
+    void (()=>{})("获取的状态是：",value)
     if (value.data.code===200){
       window.$message.success("扫码成功（已获取到用户信息）")
       qqqr.value="";
@@ -411,9 +411,9 @@ let  handleFinish = ({
                        file,
                        event
                      })=>{
-  // console.log("file:"+file.status)
-  // console.log("event:"+JSON.stringify(event))
-  // console.log("file:"+JSON.stringify(file))
+  // void (()=>{})("file:"+file.status)
+  // void (()=>{})("event:"+JSON.stringify(event))
+  // void (()=>{})("file:"+JSON.stringify(file))
   //
   if (file.status=='finished'){
     window.$message.success("配置导入成功!")
