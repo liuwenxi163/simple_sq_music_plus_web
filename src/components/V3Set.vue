@@ -328,7 +328,7 @@ let getQQVipQrCodeStatusc=()=>{
       qrTitle.value="扫码成功了去搜索看看！";
     }else{
       window.$message.error(value.data.msg)
-      qrTitle.value="扫码有点问题，重试一下或者检查下网络啥问题！";
+      qrTitle.value=value.data.msg || "暂时无法验证，请稍后再检测";
     }
     refreshData()
   })
@@ -337,7 +337,7 @@ let getQQVipQrCodeStatusc=()=>{
 let refreshQQvipCookiec=()=>{
   refreshQQvipCookie().then(value => {
     if (value.data.code===200){
-      window.$message.success("刷新成功")
+      window.$message.success(value.data.data || value.data.msg || "登录状态已更新")
     }else{
       window.$message.error(value.data.msg)
     }
