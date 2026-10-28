@@ -73,7 +73,7 @@ async function play(t, list) {
   if (!t) return
   if (t.local && !t.playable) { toast('浏览器不支持此音频格式，可在下载设置中选择 MP3'); return }
   const generation = ++playGeneration
-  audio.value.pause(); dashPlayer?.reset(); dashPlayer = null
+  audio.value.pause(); dashPlayer?.reset(); dashPlayer = null; audio.value.removeAttribute('src'); audio.value.load(); buffering.value = false
   current.value = t; if (list) queue.value = [...list]; elapsed.value = 0; duration.value = 0; preparing.value = true; lyricText.value = ''; error.value = ''
   try {
     let url
@@ -92,7 +92,7 @@ async function play(t, list) {
     } else { audio.value.src = url; audio.value.load(); await audio.value.play() }
     prefs.value.recent = [trackKey(t), ...prefs.value.recent.filter(k => k !== trackKey(t))].slice(0, 100); persist()
     if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, album: t.album, artwork: t.coverUrl ? [{ src: new URL(t.coverUrl, location.origin).href }] : [] })
-  } catch (e) { if (generation === playGeneration) { playing.value = false; toast(e.name === 'NotAllowedError' ? '轻点播放，继续听歌' : e.message || '当前格式无法播放') } } finally { if (generation === playGeneration) preparing.value = false }
+  } catch (e) { if (generation === playGeneration) { playing.value = false; error.value = e.name === 'NotAllowedError' ? '轻点播放，继续听歌' : e.message || '当前音频暂时无法播放'; toast(error.value) } } finally { if (generation === playGeneration) preparing.value = false }
 }
 async function toggle() { if (!current.value) return; if (playing.value) audio.value.pause(); else { try { await audio.value.play() } catch { await play(current.value) } } }
 function step(delta = 1, ended = false) {
@@ -103,7 +103,7 @@ function step(delta = 1, ended = false) {
   if (next >= 0 && next < queue.value.length) play(queue.value[next]); else if (repeat.value === 'all' && queue.value.length) play(queue.value[(next + queue.value.length) % queue.value.length])
 }
 function seek(value) { if (Number.isFinite(duration.value) && duration.value > 0) audio.value.currentTime = Number(value) }
-function mediaError() { if (current.value && !preparing.value) { buffering.value = false; toast('音频读取失败，轻点播放重试；本地 APE、WMA 请先转换格式') } }
+function mediaError() { if (current.value && !preparing.value) { buffering.value = false; error.value = audio.value?.error?.code === 2 ? '音频连接中断，请重试' : '浏览器无法播放返回的音频，请重试或换用 MP3 音质'; toast(error.value) } }
 async function scanLibrary() { try { scan.value = await api('/library/scan', {}); toast('正在扫描音乐目录，完成后自动刷新') } catch (e) { report(e) } }
 async function retryDownload(id) { try { await api('/task/refreshTask', { id }); await loadDownloads() } catch (e) { report(e) } }
 async function enrich() { try { await api('/enrichment/jobs', { path: enrichPath.value, provider: jobProvider.value, embed: embed.value }); toast('整理任务已加入队列'); await loadJobs() } catch (e) { report(e) } }
