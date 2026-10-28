@@ -94,7 +94,7 @@ async function play(t, list) {
     if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, album: t.album, artwork: t.coverUrl ? [{ src: new URL(t.coverUrl, location.origin).href }] : [] })
   } catch (e) { if (generation === playGeneration) { playing.value = false; error.value = e.name === 'NotAllowedError' ? '轻点播放，继续听歌' : e.message || '当前音频暂时无法播放'; toast(error.value) } } finally { if (generation === playGeneration) preparing.value = false }
 }
-async function toggle() { if (!current.value) return; if (playing.value) audio.value.pause(); else { try { await audio.value.play() } catch { await play(current.value) } } }
+async function toggle() { if (!current.value) return; if (playing.value) audio.value.pause(); else if (!audio.value.getAttribute('src') || audio.value.error) await play(current.value); else { try { await audio.value.play() } catch { await play(current.value) } } }
 function step(delta = 1, ended = false) {
   if (ended && repeat.value === 'one') { audio.value.currentTime = 0; audio.value.play().catch(() => {}); return }
   if (delta < 0 && elapsed.value > 3) { audio.value.currentTime = 0; return }
