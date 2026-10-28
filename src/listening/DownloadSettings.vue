@@ -25,7 +25,7 @@ async function save(event) {
 
 <template>
   <section class="download-settings" aria-label="下载音质设置">
-    <div><h2>下载音质</h2><p id="download-quality-help" class="muted">默认下载最高可用音质，优先无损。实际音质取决于歌曲提供的版本及账号权限；仅影响新任务，在线播放单独选择兼容格式。</p></div>
+    <div><h2>下载音质</h2><p id="download-quality-help" class="muted">默认下载最高可用音质，优先无损。实际音质取决于歌曲提供的版本及账号权限；仅影响新任务，在线播放音质单独设置。</p></div>
     <div class="quality-control"><label for="download-quality">新任务音质</label><select id="download-quality" :value="selected" :disabled="loading || saving" aria-describedby="download-quality-help" @change="save"><option value="auto">最高可用音质（默认）</option><option v-for="option in options.filter(item => item.value !== 'auto')" :key="option.value" :value="option.value">{{ option.label }}</option></select><span class="muted" role="status">{{ loading ? '正在读取设置…' : saving ? '正在保存…' : saved ? '已保存，后续下载使用此设置' : '保存到服务器，手机与电脑共用' }}</span></div>
     <p v-if="error" class="quality-error" role="alert">{{ error }} <button class="text-button" @click="refresh().then(() => error = '').catch(e => error = e.message)">重新读取</button></p>
   </section>

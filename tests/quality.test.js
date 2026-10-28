@@ -4,9 +4,9 @@ import { playbackParams, downloadParams, qualityLabel } from '../src/listening/q
 
 const song = { id: 'test-song', plugName: 'qqvip', brTypes: ['QQVIP_Flac_2000', 'QQVIP_MP3_320', 'QQVIP_MP3_128'] }
 
-test('playback can choose MP3 without downgrading the same song download', () => {
+test('highest playback quality is independent from server download settings', () => {
   const playback = playbackParams(song, 'qqvip')
-  assert.equal(playback.brType, 'QQVIP_MP3_320')
+  assert.equal(playback.brType, 'QQVIP_Flac_2000')
   const download = downloadParams(playback, 'qqvip')
   assert.equal('brType' in download, false)
   assert.equal('downloadFormat' in download, false)
@@ -26,4 +26,10 @@ test('task quality distinguishes lossless from MP3 without claiming Hi-Res', () 
   assert.equal(qualityLabel('qqvip_flac_2000'), 'FLAC 无损')
   assert.equal(qualityLabel('qqvip_mp3_320'), 'MP3 320 kbps')
   assert.equal(qualityLabel('qqvip_mp3_128'), 'MP3 128 kbps')
+})
+
+test('manual playback quality is honored and unavailable choices select highest', () => {
+  assert.equal(playbackParams(song, 'qqvip', 'QQVIP_MP3_320').brType, 'QQVIP_MP3_320')
+  assert.equal(playbackParams(song, 'qqvip', 'NETEASE_MP3_128').brType, 'QQVIP_Flac_2000')
+  assert.equal(playbackParams({...song,brTypes:['QQVIP_MP3_128','QQVIP_MP3_320']},'qqvip').brType,'QQVIP_MP3_320')
 })

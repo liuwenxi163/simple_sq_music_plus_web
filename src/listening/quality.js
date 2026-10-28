@@ -1,10 +1,12 @@
-// Playback favors browser-compatible MP3. Downloads defer to the server's saved
-// quality preference, so a playback choice can never downgrade a NAS download.
-export function playbackParams(track, source) {
-  const values = track.brTypes || []
-  const key = value => typeof value === 'string' ? value : value?.value
-  const type = values.find(value => /mp3_320/i.test(key(value))) || values.find(value => /mp3/i.test(key(value))) || values[0]
-  return { ...track, plugName: track.plugName || source, brType: key(type) }
+const qualityKey = value => typeof value === 'string' ? value : value?.value
+export function offeredQualities(track) {
+  return [...new Set((track?.brTypes || []).map(qualityKey).filter(Boolean))].sort((a,b) => (Number(b.match(/(\d+)$/)?.[1]) || 0) - (Number(a.match(/(\d+)$/)?.[1]) || 0))
+}
+// Playback selects only advertised versions. No silent codec downgrade.
+export function playbackParams(track, source, preference = 'auto') {
+  const values = offeredQualities(track)
+  const type = values.includes(preference) ? preference : values[0]
+  return { ...track, plugName: track.plugName || source, brType: type }
 }
 
 export function downloadParams(track, source) {
