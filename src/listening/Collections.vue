@@ -23,7 +23,7 @@ const syncError = computed(() => ({DOWNLOAD_QUEUE_PARTIAL:`${summary.value.queue
 async function load() { remote.value = await api('/listening/collection'); summary.value = {...remote.value}; loaded.value = true; snapshotLoaded.value = true; error.value = ''; if(!selectedId.value) selectedId.value = remote.value.playlists?.[0]?.id || lists.value[0]?.id }
 async function poll() {
   if(polling) return;polling = true
-  try { const status = await api('/listening/collection/status'); const changed = status.lastSuccess !== summary.value.lastSuccess; summary.value = status; loaded.value = true; if(changed || !snapshotLoaded.value) await load() }
+  try { const status = await api('/listening/collection/status'); const changed = status.lastSuccess !== summary.value.lastSuccess; summary.value = status; loaded.value = true; error.value = ''; if(changed || !snapshotLoaded.value) await load() }
   catch(e) { error.value = e.message } finally {polling = false}
 }
 async function configure(key,value) {busy.value = true;error.value = '';try {summary.value = await api('/listening/collection',{enabled:!!summary.value.enabled,autoDownload:!!summary.value.autoDownload,[key]:value},'PUT')} catch(e){error.value=e.message} finally{busy.value=false}}
