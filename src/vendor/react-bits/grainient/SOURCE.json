@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/DavidHDev/react-bits",
+  "component": "Grainient",
+  "commit": "e12c22192ac7b4b452c5e2feb9b586d74765d696",
+  "files": {
+    "Grainient.jsx": {
+      "path": "src/content/Backgrounds/Grainient/Grainient.jsx",
+      "sha256": "54e16ec1ea2beae8d50c5774626bc3d113293321095673017aea5a1960555905"
+    },
+    "Grainient.css": {
+      "path": "src/content/Backgrounds/Grainient/Grainient.css",
+      "sha256": "7d0f38ba834b1473c201a596199fe4a029723f28c27556a93f33edcf8a9b478d"
+    },
+    "LICENSE.md": {
+      "path": "LICENSE.md",
+      "sha256": "4bdd1fa59a6b7d5954bc3b213dbc34e455c635a94bbcecf9293553797d0fad02"
+    }
+  },
+  "adaptation": "Original fragment shader retained, with a Vue lifecycle and bounded native WebGL renderer."
+}
