@@ -9,11 +9,11 @@ export function playbackOrigin(track, url = '') {
 }
 
 export const visualModes = [
-  { id: 'aurora', label: '流光', detail: '专辑配色，随声流动', style: 0 },
-  { id: 'spectrum', label: '频谱', detail: '真实频率，清晰起伏', style: 0 },
-  { id: 'curtain', label: '极光', detail: '层叠柔光，低音舒展', style: 1 },
-  { id: 'stars', label: '星海', detail: '高频星点，随声闪烁', style: 2 },
-  { id: 'orbit', label: '声环', detail: '环绕封面，频率描边', style: 3 },
+  { id: 'aurora', label: '流光', detail: '液态色场，随声舒展', style: 0 },
+  { id: 'spectrum', label: '频谱', detail: '频带柱阵，独立峰值', style: 0 },
+  { id: 'curtain', label: '极光', detail: '纵向光幕，层层垂落', style: 1 },
+  { id: 'stars', label: '星海', detail: '立体星流，随节拍穿行', style: 2 },
+  { id: 'orbit', label: '声环', detail: '径向声纹，环绕封面', style: 3 },
   { id: 'still', label: '静谧', detail: '留下封面，安静听歌', style: 0 }
 ]
 export const validVisualMode = value => visualModes.some(mode => mode.id === value) ? value : 'aurora'

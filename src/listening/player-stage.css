@@ -31,3 +31,7 @@
 .player-stage .stage-footnote{letter-spacing:.3px;font-size:9px}.stage-enable-sound{font:inherit;color:var(--accent);text-decoration:underline;min-height:32px}
 @media(max-width:760px){.player-stage .stage-body{padding-top:12px}.player-stage .stage-album-caption{margin-top:20px}.player-stage .stage-footnote{font-size:8px}.player-stage .stage-shortcut{display:none}}
 @media(prefers-reduced-motion:reduce){.player-stage .cover-light{opacity:.14;transform:none}}
+
+/* Each scene has its own material and geometry; the cover and transport remain stable. */
+.player-stage[data-visual-mode=spectrum] .cover-light,.player-stage[data-visual-mode=stars] .cover-light{opacity:.045}.player-stage[data-visual-mode=orbit] .cover-light{opacity:.08}.player-stage[data-visual-mode=still] .cover-light{opacity:.06}
+.preview-aurora{background:radial-gradient(ellipse at 22% 28%,oklch(58% .1 210),transparent 70%),radial-gradient(ellipse at 80% 85%,oklch(45% .1 290),oklch(19% .025 245))}.preview-curtain{background:repeating-linear-gradient(92deg,oklch(15% .025 235) 0 8px,oklch(55% .13 155) 12px,oklch(27% .09 235) 22px,oklch(47% .12 295) 25px,oklch(15% .025 235) 34px)}.preview-stars{background:radial-gradient(circle at 10% 20%,oklch(92% .02 245) 0 1px,transparent 2px),radial-gradient(circle at 82% 65%,oklch(87% .04 290) 0 2px,transparent 3px),radial-gradient(circle at 55% 48%,oklch(90% .03 240) 0 1px,transparent 2px),radial-gradient(ellipse at 42% 50%,oklch(29% .07 275),oklch(13% .025 270))}

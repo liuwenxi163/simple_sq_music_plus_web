@@ -30,7 +30,16 @@ The user specifically requested the finish of their NOOK app. Use its calm ink s
 
 ## Immersive listening stage
 
-The user rejected the broad Canvas 2D waves and giant spectrum presentation. Keep a stable, large square cover and synchronized lyrics as the foreground. Use the pinned React Bits Aurora shaders with a native WebGL2 lifecycle, muted album-derived OKLCH colors and a dark lyric-side scrim. Actual RMS controls brightness, bass controls amplitude and clock advancement, high frequencies control glow. Never substitute an autoplaying timer for an unavailable or paused audio signal. A compact 24px real-frequency rail appears only in spectrum mode. No cover tilt, shaking or animated zoom. Preserve the quiet cream transport control, balanced album/lyric columns and a phone cover/lyrics switch. Stop on pause, hidden pages or reduced motion; cap rendering at 30 FPS and the Aurora canvas at 420,000 pixels. Analysis captures a copy of playback without rerouting audible audio. Unsupported WebGL or capture retains readable static artwork and music.
+The user requires visibly different scenes, rather than one background with minor overlays. Keep large clean artwork, synchronized lyrics and transport readable while replacing the background's actual material and geometry per mode:
+
+- 流光: original pinned React Bits Grainient two-pass liquid field, album-derived colors and RMS-driven flow. Keep maximum color brightness restrained behind text.
+- 频谱: matte technical-blue background with 64 actual frequency columns, independent peak markers and a small reflection. Compute available height below the rendered song text and above the timeline; never cover the title.
+- 极光: the pinned React Bits Aurora shader rotated into a vertical green/violet light curtain, combined with curved translucent filaments. Darken the lyric side.
+- 星海: a deep blue night sky with deterministic depth-projected particles and trails. Integrate RMS/bass-dependent travel speed rather than changing positions abruptly; real frequency bands control brightness. At most 420 stars on desktop and 180 on narrow views.
+- 声环: an independent dark stage, radial frequency spokes and a closed waveform ring around the artwork. Lift dark album colors so the ring stays visible.
+- 静谧: static artwork, subtle tint and no active visual/audio-analysis loop. Music continues playing.
+
+Aurora is exclusive to the curtain, Grainient to the liquid field; the remaining modes do not inherit either light layer. Preserve static identities while paused, but never invent frequency values. Pause, hidden pages and reduced motion stop motion. WebGL resources are initialized lazily, and Canvas 2D supplies real audio-driven fallback shapes. There is one shared animation loop capped at 30 FPS, a 700,000-pixel vector buffer and at most 420,000 pixels for the active shader. Keep the cover stable and respect the phone cover/lyrics switch.
 
 ## Listening room refresh
 
@@ -49,7 +58,7 @@ QQ recommendations have two explicit selectors: 每日推荐 and 猜你喜欢. D
 
 Playlist origins use a shared text badge with the complete platform name in the library shelf, playlist list and detail header; the phone selector includes the same name. Read the playlist's own source/provider or namespaced identity, never infer ownership from its songs. Explicit local playlists remain NAS 本地 even when they contain cloud tracks. Unknown sources are labelled honestly. Playlist kinds (likes, owned, collected) remain separate from platform identity.
 
-The listening scene targets up to 60 draws per second and starts with a 1.5-million-pixel canvas budget. Reduce the drawing buffer only when measured draw-call time exceeds 12 ms, never solely because browser-scheduled RAF is slow; occluded/background tabs must not cause needless quality loss. Diagnostics expose separate FPS, draw time and real audio-band envelopes without exposing media URLs or account data.
+The player exposes FPS, draw submission time, active effect and real audio envelopes as coarse DOM diagnostics without URLs or credentials. Measure drawing cost independently of browser frame throttling; do not claim foreground performance from background-tab measurements.
 
 ## Member management
 

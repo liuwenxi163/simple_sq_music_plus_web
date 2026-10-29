@@ -19,7 +19,7 @@ export function createAurora(canvas){
       if(disposed||lost)return false
       const stamp=colors.flat().join(',');if(stamp!==key){key=stamp;unwrapHues(colors.map(toOklch)).forEach((c,i)=>palette.set(c,i*3))}
       const v=auroraResponse(s,mode),dt=v.pace&&last?Math.min(1,Math.max(0,(now-last)/1000)):0;last=v.pace?now:0;clock+=dt*v.pace
-      gl.viewport(0,0,canvas.width,canvas.height);gl.useProgram(program);gl.bindVertexArray(vao);gl.uniform2f(u.uResolution,canvas.width,canvas.height);gl.uniform1f(u.uTime,clock);gl.uniform3fv(u['uStops[0]'],palette);gl.uniform1i(u.uStopCount,3);gl.uniform1f(u.uAmplitude,v.amplitude);gl.uniform1f(u.uBlend,.65);gl.uniform1f(u.uHeight,v.height);gl.uniform1f(u.uScale,1.1);gl.uniform1f(u.uGlow,v.glow);gl.uniform1f(u.uBrightness,v.brightness);gl.uniform1i(u.uLayers,2);gl.uniform1f(u.uFlip,1);gl.uniform3f(u.uPointer,0,.5,0);gl.uniform1f(u.uReveal,1);gl.uniform1f(u.uOpacity,mode==='still'?.2:v.opacity);gl.uniform1f(u.uLightMode,0);gl.drawArrays(gl.TRIANGLES,0,3);return true
+      gl.viewport(0,0,canvas.width,canvas.height);gl.useProgram(program);gl.bindVertexArray(vao);gl.uniform2f(u.uResolution,canvas.width,canvas.height);gl.uniform1f(u.uTime,clock);gl.uniform3fv(u['uStops[0]'],palette);gl.uniform1i(u.uStopCount,3);gl.uniform1f(u.uAmplitude,v.amplitude);gl.uniform1f(u.uBlend,.16);gl.uniform1f(u.uHeight,v.height);gl.uniform1f(u.uScale,2.4);gl.uniform1f(u.uGlow,v.glow);gl.uniform1f(u.uBrightness,v.brightness);gl.uniform1i(u.uLayers,3);gl.uniform1f(u.uFlip,1);gl.uniform3f(u.uPointer,0,.5,0);gl.uniform1f(u.uReveal,1);gl.uniform1f(u.uOpacity,mode==='still'?.2:v.opacity);gl.uniform1f(u.uLightMode,0);gl.drawArrays(gl.TRIANGLES,0,3);return true
     },dispose}
   }catch{dispose();return null}
 }
