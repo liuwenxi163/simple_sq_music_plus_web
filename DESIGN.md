@@ -6,7 +6,7 @@ A NAS owner settles in at their desk or with a phone in the evening, choosing a 
 
 ## Color strategy
 
-Restrained: warm charcoal surfaces with a cool cyan accent reserved for primary actions, playback, active navigation and progress. Use OKLCH tokens. Neutral chroma stays subtle and no surface uses pure black or white. Semantic success, warning and error states also use text and icons.
+Restrained: cool graphite surfaces with a cyan accent reserved for primary actions, playback, active navigation and progress. Use OKLCH tokens. Neutral chroma stays subtle and no surface uses pure black or white. Semantic success, warning and error states also use text and icons.
 
 ## Typography
 
@@ -36,6 +36,10 @@ The user requested a substantial visual redesign, large album art and audio visu
 
 Cover-led library opening, real account playlist shelves, album-cover playlist headers and quieter download preferences extend the immersive player into browsing. No fabricated recommendations. Show actual NAS-file playback versus platform streaming. The visual scene picker previews six distinct modes without crowding the transport on phones. NOOK Music shares the inclined-stroke family mark while retaining its own record outline.
 
-## Discovery as the opening scene
+## Nook atmosphere and spacing
 
-The previous browse pages were explicitly rejected as demo-like. Replace the generic boxed welcome with an open, cover-dominant daily selection: warm ink, cream transport accents, larger readable typography, a restrained calendar detail and a composed real-album stack. Each connected platform has its own recommendation context. Keep origin, write destination, waiting and failure states truthful. Local-first playback preserves the original platform identity.
+The user rejected the brown-black / cream browse theme and the recommendation text touching the card edge. Match the live Nook reference: cool graphite, clear pale text, cyan actions, lavender and blue ambient depth. The scene is a personal listening room on a desktop or phone after work, with enough light and color to feel welcoming while covers stay readable. This explicit reference takes precedence over the earlier warm editorial direction.
+
+React Bits Color Bends supplies the shared background. Pin the actual upstream source and license; retain the original fragment shader rather than labelling a lookalike as React Bits. A native WebGL renderer and Vue wrapper provide a 24 FPS drawing cap, at most 1.1 million drawing pixels on desktop / 480,000 on phones, reduced-motion still rendering, hidden-page suspension, pause behind the full player and a static fallback. The background reads no account or audio data.
+
+Use a single translucent recommendation stage and a quiet sidebar; ordinary song lists stay open. The stage has 40–54px desktop internal spacing and 24px phone spacing, matching left alignment for the edition, title, action and first-song preview. Cover art has its own balanced column. Shorten the opening so the real recommendation list appears sooner. Cyan action buttons and cool neutral controls are shared across search, library, downloads, playlists and settings. Preserve existing immersive player modes and playback behavior.

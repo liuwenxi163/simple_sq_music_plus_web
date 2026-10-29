@@ -18,6 +18,7 @@ import './room.css'
 import './atelier.css'
 import DailyRoom from './DailyRoom.vue'
 import PlaylistTarget from './PlaylistTarget.vue'
+import AmbientRoom from './AmbientRoom.vue'
 import { platformOf, localRequest, playlistTargets } from './listening-policy'
 
 const user = userInfoStore(), config = configInfoStore(), route = useRoute(), router = useRouter()
@@ -164,6 +165,7 @@ onUnmounted(() => { document.body.style.overflow = ''; clearInterval(timer); cle
 </script>
 
 <template>
+  <AmbientRoom :active="!expanded" />
   <audio ref="audio" preload="metadata" @timeupdate="elapsed = audio.currentTime" @durationchange="duration = Number.isFinite(audio.duration) ? audio.duration : 0" @play="playing = true" @pause="playing = false" @playing="buffering = false" @waiting="buffering = true" @canplay="buffering = false" @error="mediaError" @ended="step(1, true)" />
   <main v-if="!user.token" class="login-scene">
     <div class="login-intro"><span class="wordmark"><img :src="brandMark" alt="" /> NOOK MUSIC <small>A PLACE FOR YOUR SOUND</small></span><h1>让喜欢的音乐，<br />有一个自己的家。</h1><p>从收藏到播放，留在你的 NAS。</p><div class="record-shape" aria-hidden="true"><span></span></div></div>

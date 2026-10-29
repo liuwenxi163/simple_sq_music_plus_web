@@ -75,3 +75,8 @@ src/utils/api.js 文件修改即可
 ## 平台推荐与来源偏好
 
 首页新增为你推荐，按已登录平台分开展示真实日推。喜欢写回该平台，加入歌单明确区分平台云端和 NAS 本地，不跨平台自动搜索匹配。默认本地优先，可在音乐库、搜索或设置切换并保存至 NAS；保留原平台歌曲身份用于云端操作。
+
+
+### Browse atmosphere
+
+The browse background uses [React Bits Color Bends](https://reactbits.dev/backgrounds/color-bends), pinned at `e12c22192ac7b4b452c5e2feb9b586d74765d696`. Original source, checksums and the MIT + Commons Clause license are retained under `src/vendor/react-bits/color-bends`; the license ships at `/licenses/react-bits.txt`. Only its shader is used by a native WebGL renderer with a Vue lifecycle wrapper. Drawing is capped at 24 FPS and 1.1 million pixels (480,000 on phones); hidden pages and the expanded player suspend it, reduced motion renders a still, and unavailable WebGL retains the static color atmosphere. The renderer does not access account credentials, remote images or audio.
