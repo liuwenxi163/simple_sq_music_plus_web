@@ -35,3 +35,7 @@ The user requested a substantial visual redesign, large album art and audio visu
 ## Listening room refresh
 
 Cover-led library opening, real account playlist shelves, album-cover playlist headers and quieter download preferences extend the immersive player into browsing. No fabricated recommendations. Show actual NAS-file playback versus platform streaming. The visual scene picker previews six distinct modes without crowding the transport on phones. NOOK Music shares the inclined-stroke family mark while retaining its own record outline.
+
+## Discovery as the opening scene
+
+The previous browse pages were explicitly rejected as demo-like. Replace the generic boxed welcome with an open, cover-dominant daily selection: warm ink, cream transport accents, larger readable typography, a restrained calendar detail and a composed real-album stack. Each connected platform has its own recommendation context. Keep origin, write destination, waiting and failure states truthful. Local-first playback preserves the original platform identity.

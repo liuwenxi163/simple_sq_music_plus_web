@@ -1,10 +1,10 @@
 import userInfoStore from '../stores/user'
 
-export async function api(path, body, method = body === undefined ? 'GET' : 'POST') {
+export async function api(path, body, method = body === undefined ? 'GET' : 'POST', options = {}) {
   const user = userInfoStore()
   const response = await fetch('/api' + path, {
     method, headers: { 'Content-Type': 'application/json', ...(user.token ? { sqmusic: user.token } : {}) },
-    body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(65000), cache: 'no-store'
+    body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(options.timeout || 65000), cache: 'no-store'
   })
   if (response.status === 401 || response.status === 403) {
     user.clearUserInfo()
