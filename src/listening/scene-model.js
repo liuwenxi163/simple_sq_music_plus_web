@@ -8,8 +8,8 @@ export function spectrumBars(s,l){
  return Array.from({length:64},(_,i)=>({x:x+(i+.5)*step,width:Math.max(1.5,step*.57),base,maxHeight:height,height:band(s,i)*height,peak:s.live?clamp(s.peaks?.[i])*height:0,value:band(s,i)}))
 }
 export function orbitShape(s,l,phase=0){
- const c=l.cover,cx=c.x+c.width/2,cy=c.y+c.height/2,r=c.width*.72
- return {cx,cy,r,points:Array.from({length:129},(_,i)=>{const t=i%128,a=t/128*Math.PI*2+phase*.035,v=band(s,Math.floor(t/2)),wave=s.live?(Number(s.waveform?.[t])||0):0,rr=r+Math.sqrt(v)*Math.min(34,c.width*.1)+wave*12;return {x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr,value:v}})}
+ const c=l.cover,cx=c.x+c.width/2,cy=c.y+c.height/2,r=c.width*.72,ry=c.height*.5+10
+ return {cx,cy,r,ry,points:Array.from({length:129},(_,i)=>{const t=i%128,a=t/128*Math.PI*2+phase*.035,v=band(s,Math.floor(t/2)),wave=s.live?Math.max(-1,Math.min(1,Number(s.waveform?.[t])||0)):0,rr=r+Math.sqrt(v)*Math.min(34,c.width*.1)+wave*12,vertical=ry+Math.sqrt(v)*10+wave*4;return {x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*vertical,value:v}})}
 }
 export function starField(s,l,phase=0){
  const count=l.width<760?180:420,cx=l.width*.44,cy=l.height*.42,focal=Math.max(l.width,l.height)*.62

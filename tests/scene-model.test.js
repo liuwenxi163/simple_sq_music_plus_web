@@ -30,3 +30,7 @@ test('dark artwork still yields a visible orbital line without modifying the ori
 test('music-dependent travel speed integrates smoothly instead of changing particle position with each loudness sample',()=>{
  const c=createSceneClock();c.step(0,true,'stars',1);assert.equal(c.step(500,true,'stars',2),1);assert.equal(c.step(1000,true,'stars',.5),1.25)
 })
+
+test('orbital waves stay near the artwork and above the song information at full signal',()=>{
+ for(const c of [layout.cover,{x:30,y:160,width:328,height:328}]){const s=frame();s.levels.fill(1);s.waveform.fill(1);const ring=orbitShape(s,{...layout,cover:c});assert.ok(ring.points.every(p=>p.y<=c.y+c.height+24&&p.y>=c.y-24))}
+})

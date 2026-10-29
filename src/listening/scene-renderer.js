@@ -34,8 +34,8 @@ export function createScene(canvas){
   }
   if(mode==='orbit'){
    ctx.fillStyle='rgb(12,15,25)';ctx.fillRect(0,0,w,h);const ring=orbitShape(s,l,phase);glow(0,ring.cx,ring.cy,ring.r*1.6,.14+e*.2)
-   ctx.lineWidth=1;ctx.strokeStyle=rgba(p[0],.16);ctx.beginPath();ctx.arc(ring.cx,ring.cy,ring.r+42+b*9,0,Math.PI*2);ctx.stroke()
-   for(let i=0;i<96;i++){const a=i/96*Math.PI*2-phase*.035,v=s.live?s.levels[Math.floor(i*64/96)]:0,r=ring.r+9,x=ring.cx+Math.cos(a)*r,y=ring.cy+Math.sin(a)*r,len=2+v*28;ctx.strokeStyle=rgba(p[i%3],.2+v*.6);ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(a)*len,y+Math.sin(a)*len);ctx.stroke()}
+   ctx.lineWidth=1;ctx.strokeStyle=rgba(p[0],.16);ctx.beginPath();ctx.ellipse(ring.cx,ring.cy,ring.r+42+b*9,ring.ry+14+b*3,0,0,Math.PI*2);ctx.stroke()
+   for(let i=0;i<96;i++){const a=i/96*Math.PI*2-phase*.035,v=s.live?s.levels[Math.floor(i*64/96)]:0,x=ring.cx+Math.cos(a)*(ring.r+9),y=ring.cy+Math.sin(a)*(ring.ry+4);ctx.strokeStyle=rgba(p[i%3],.2+v*.6);ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(a)*(2+v*28),y+Math.sin(a)*(2+v*12));ctx.stroke()}
    ctx.beginPath();ring.points.forEach((t,i)=>i?ctx.lineTo(t.x,t.y):ctx.moveTo(t.x,t.y));ctx.closePath();ctx.strokeStyle=rgba(p[0],.5+e*.35);ctx.lineWidth=1.9;ctx.stroke();ctx.strokeStyle=rgba(p[0],.06+b*.08);ctx.lineWidth=10;ctx.stroke()
   }
  },dispose(){disposed=true;lights=[]}}
