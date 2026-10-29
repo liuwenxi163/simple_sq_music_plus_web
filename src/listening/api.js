@@ -1,15 +1,17 @@
 import userInfoStore from '../stores/user'
 
 export async function api(path, body, method = body === undefined ? 'GET' : 'POST', options = {}) {
-  const user = userInfoStore()
+  const user = userInfoStore(), token=userInfoStore().token
   const response = await fetch('/api' + path, {
-    method, headers: { 'Content-Type': 'application/json', ...(user.token ? { sqmusic: user.token } : {}) },
+    method, headers: { 'Content-Type': 'application/json', ...(token ? { sqmusic: token } : {}) },
     body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(options.timeout || 65000), cache: 'no-store'
   })
-  if (response.status === 401 || response.status === 403) {
+  if(token!==user.token) throw new Error('账号已切换，请重新操作')
+  if (response.status === 401) {
     user.clearUserInfo()
     throw new Error('登录已过期，请重新登录')
   }
+  if (response.status === 403) throw new Error('此操作仅管理员可用')
   if (!response.ok) throw new Error('服务暂时不可用，请稍后重试')
   const result = await response.json()
   if (result.code !== 200) throw new Error(result.msg || '请求未完成')

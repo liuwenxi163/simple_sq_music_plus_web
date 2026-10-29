@@ -69,18 +69,13 @@ service.interceptors.response.use(response => {
                 window.$message.error(error.message)
                 // 清除用户缓存
                 const stuserInfoStore = userInfoStore();
-                stuserInfoStore.clearUserInfo();
+                if(error.config?.headers?.sqmusic===stuserInfoStore.token)stuserInfoStore.clearUserInfo();
                 // 跳转到登录页
-                window.location.href = "/#"
+                if(!stuserInfoStore.token)window.location.href = "/#"
                 break;
             case 403:
-               error.message = 'token已失效，请重新登录'
-                window.$message.error(error.message)
-                // 清除用户缓存
-                const stuserInfoStore1 = userInfoStore();
-                stuserInfoStore1.clearUserInfo();
-                // 跳转到登录页
-                window.location.href = "/#"
+                error.message = '此操作仅管理员可用'
+                window.$message?.error(error.message)
                 break;
             case 404:
                 error.message = '请求错误,未找到该资源'

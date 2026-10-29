@@ -1,38 +1,12 @@
-import { defineStore } from "pinia"
-import {getAllSet, isLogin, login} from "../utils/api.js";
-import { useRoute, useRouter } from 'vue-router'
-const router = useRouter()
-
-
-
-const userInfoStore = defineStore('userInfo', {
-    persist: true,
-
-    state: () => ({
-        username: '',
-        token: '',
-        loginDevice:'web',
-        device:'web'
-    }),
-    actions: {
-        setUserName(username){
-            this.username = username
-        },
-        setToken(token){
-            this.token = token
-        },
-        setLoginDevice(loginDevice){
-            this.loginDevice = loginDevice
-        },
-        isLogin() {
-            return isLogin()
-        },
-        clearUserInfo() {
-            this.username = ''
-            this.token = ''
-            this.loginDevice = ''
-        },
-    }
+import { defineStore } from 'pinia'
+import { isLogin } from '../utils/api.js'
+export default defineStore('userInfo', {
+  persist:true,
+  state:()=>({username:'',token:'',loginDevice:'web',device:'web',memberId:null,role:'',displayName:''}),
+  actions:{
+    setUserName(v){this.username=v},setToken(v){this.token=v},setLoginDevice(v){this.loginDevice=v},
+    setProfile(p){this.memberId=p.id;this.username=p.username;this.displayName=p.displayName;this.role=p.role},
+    isLogin(){return isLogin()},
+    clearUserInfo(){this.$reset()}
+  }
 })
-
-export default userInfoStore

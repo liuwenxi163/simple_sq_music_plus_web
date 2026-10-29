@@ -5,6 +5,7 @@ import { qualityLabel } from './quality'
 import DownloadSettings from './DownloadSettings.vue'
 import Artwork from './Artwork.vue'
 import Icon from './Icon.vue'
+const props=defineProps({admin:Boolean})
 const emit = defineEmits(['play'])
 const tab = ref('active'), page = ref(1), items = ref([]), total = ref(0), loading = ref(true), error = ref(''), local = ref([]), localTotal = ref(0)
 let timer, inFlight = false, generation = 0
@@ -27,19 +28,19 @@ async function refresh() {
   } catch (e) { if (request === generation) error.value = e.message }
   finally { inFlight = false; if (request === generation) loading.value = false }
 }
-async function select(value) { generation++; tab.value = value; page.value = 1; loading.value = true; if (value === 'library') await api('/library/scan', {}).catch(e => error.value = e.message); await refresh() }
-async function retry(job) { try { await api('/task/refreshTask', { id: job.id }); await select('active') } catch (e) { error.value = e.message } }
+async function select(value) { generation++; tab.value = value; page.value = 1; loading.value = true; if (value === 'library'&&props.admin) await api('/library/scan', {}).catch(e => error.value = e.message); await refresh() }
+async function retry(job) { try { await api(props.admin?'/task/refreshTask':'/members/me/downloads/'+job.id+'/retry', props.admin?{id:job.id}:{}); await select('active') } catch (e) { error.value = e.message } }
 async function turn(delta) { page.value += delta; await refresh() }
 onMounted(() => { refresh(); timer = setInterval(() => { if (!document.hidden) refresh() }, 2000) })
 onUnmounted(() => { clearInterval(timer); generation++ })
 </script>
 <template>
-  <details class="download-preferences"><summary><span><Icon name="settings" :size="18" />下载偏好<small>音质与保存方式</small></span><Icon name="down" :size="16" /></summary><DownloadSettings /></details>
+  <details v-if="admin" class="download-preferences"><summary><span><Icon name="settings" :size="18" />下载偏好<small>音质与保存方式</small></span><Icon name="down" :size="16" /></summary><DownloadSettings /></details>
   <div class="download-tabs" role="group" aria-label="下载分类"><button v-for="option in [{id:'active',name:'下载中'},{id:'library',name:'已下载'},{id:'failed',name:'失败'},{id:'all',name:'全部记录'}]" :key="option.id" class="quiet" :class="{selected:tab===option.id}" @click="select(option.id)">{{ option.name }}</button></div>
   <p v-if="error" class="inline-error" role="alert">{{ error }} <button class="text-button" @click="refresh">重试</button></p>
   <div v-if="loading" class="skeleton-list" aria-label="正在读取下载"><div v-for="n in 3" :key="n"></div></div>
   <template v-else-if="tab === 'library'">
-    <div class="section-heading"><p class="muted">NAS 中的音乐文件，共 {{ localTotal }} 首。完成下载后会自动刷新索引。</p><button class="quiet" @click="select('library')">扫描文件</button></div>
+    <div class="section-heading"><p class="muted">NAS 中的音乐文件，共 {{ localTotal }} 首。完成下载后会自动刷新索引。</p><button v-if="admin" class="quiet" @click="select('library')">扫描文件</button></div>
     <div v-if="!local.length" class="empty-state"><Icon name="library" :size="40" /><h2>还没有已下载的音乐</h2><p>下载完成后，歌曲会出现在这里。</p></div>
     <div v-for="track in local" :key="track.id" class="result-row"><button class="track-main" @click="emit('play',track,local)"><Artwork :src="track.coverUrl" /><span><strong>{{ track.title }}</strong><small>{{ track.artist }} · {{ track.album }}</small></span></button><span class="format-badge">{{ track.format.toUpperCase() }}</span><span class="muted">{{ bytes(track.size) }} · {{ formatTime(track.duration) }}</span><button class="icon-button" :aria-label="'播放 ' + track.title" @click="emit('play',track,local)"><Icon name="play" /></button></div>
   </template>

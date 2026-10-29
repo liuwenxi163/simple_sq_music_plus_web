@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/DavidHDev/react-bits",
+  "component": "Aurora",
+  "commit": "e12c22192ac7b4b452c5e2feb9b586d74765d696",
+  "files": {
+    "Aurora.jsx": {
+      "path": "src/content/Backgrounds/Aurora/Aurora.jsx",
+      "sha256": "2586a8883696655f944ae9e5535351a7000b194feee1f38a476fb518e4e1a371"
+    },
+    "Aurora.css": {
+      "path": "src/content/Backgrounds/Aurora/Aurora.css",
+      "sha256": "a27157d447e395fed72a20a35149f0afb8addae074e0a20503bea2cc90f3e7fd"
+    },
+    "LICENSE.md": {
+      "path": "LICENSE.md",
+      "sha256": "4bdd1fa59a6b7d5954bc3b213dbc34e455c635a94bbcecf9293553797d0fad02"
+    }
+  },
+  "adaptation": "Unchanged upstream shaders and OKLCH helpers, Vue/native WebGL lifecycle, uniforms driven by the actual audio analysis."
+}

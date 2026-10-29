@@ -31,3 +31,7 @@ The upstream frontend was explicitly rejected as unattractive. Avoid its scatter
 ## Accessibility & Inclusion
 
 Support both touch and keyboard, clear readable text, visible focus, labeled icon controls and reduced motion. Avoid using color alone for download states. Build responsive layouts with the same behavior on desktop and phone.
+
+## Family listening
+
+The default admin is the highest-privilege member. Each family member signs in separately, binds their own platform accounts and owns recommendations, favorites, playlists and history. The NAS music files remain shared. Account management stays in More and the profile entry; no invented family members, open registration or credential borrowing.
