@@ -1,6 +1,6 @@
 const clamp=v=>Math.max(0,Math.min(1,Number(v)||0))
 const band=(s,i)=>s.live?clamp(s.levels?.[i]):0
-export const sceneKinds={aurora:'liquid',spectrum:'equalizer',curtain:'light-curtain',stars:'star-flight',orbit:'radial-wave',still:'artwork'}
+export const sceneKinds={aurora:'liquid',spectrum:'equalizer',curtain:'light-curtain',stars:'star-flight',orbit:'radial-wave',vinyl:'turntable',neon:'neon-tunnel',terrain:'sound-landscape',prism:'kaleidoscope',water:'water-caustics',ink:'ink-paper',still:'artwork'}
 export function scenePalette(mode,album){if(mode==='orbit')return album.map(c=>{const peak=Math.max(.1,...c);return c.map(v=>.2+v/peak*.7)});return ({spectrum:[[.3,.8,.9],[.56,.87,.92],[.86,.94,.98]],curtain:[[.17,.82,.55],[.2,.65,.76],[.61,.39,.84]],stars:[[.42,.54,.87],[.74,.52,.9],[.83,.9,.98]]})[mode]||album}
 export function createSceneClock(){let phase=0,last=null,kind;return {step(now,active,mode,rate=1){if(kind!==mode){last=null;kind=mode}if(active&&last!==null)phase+=Math.max(0,Math.min(1,(now-last)/1000))*Math.max(0,Math.min(3,rate));last=active?now:null;return phase}}}
 export function spectrumBars(s,l){

@@ -30,7 +30,7 @@ const view = computed(() => route.params.view || 'daily')
 const nav = [{id:'daily',label:'为你推荐',icon:'spark'}, { id: 'library', label: '音乐库', icon: 'library' }, { id: 'search', label: '发现音乐', icon: 'search' }, { id: 'favorites', label: '我喜欢', icon: 'heart' }, { id: 'sync', label: '我的歌单', icon: 'queue' }, { id: 'downloads', label: '下载', icon: 'download' }, { id: 'tools', label: '更多', icon: 'settings' }]
 const titles = {members:'家庭成员',account:'我的账号', daily:'为你推荐', library: '属于你的音乐', search: '下一首，想听什么？', favorites: '喜欢，所以留在这里', downloads: '下载管理', tools: '让音乐库更完整', sync: '我的歌单', monitors: '链接监听', enrichment: '歌词与封面', settings: '设置', parser: '导入歌单', text: '文本导入', cloud: '云盘同步' }
 const legacy = { monitors: defineAsyncComponent(() => import('../components/Monitor.vue')), settings: defineAsyncComponent(() => import('../components/V3Set.vue')), parser: defineAsyncComponent(() => import('../components/V3ParserPlaylist.vue')), text: defineAsyncComponent(() => import('../components/V3Parsertext.vue')), cloud: defineAsyncComponent(() => import('../components/AliyunSync.vue')) }
-const brandMark = import.meta.env.BASE_URL+'nook-music.svg'
+const brandMark = import.meta.env.BASE_URL+'nook-music.svg?v=2'
 const go = id => router.push('/' + id)
 const busy = ref(false), error = ref(''), notice = ref(''), tracks = ref([]), total = ref(0), scan = ref({}), prefs = ref({ favorites: [], playlists: [], recent: [] })
 const filter = ref(''), source = ref('qqvip'), keyword = ref(''), results = ref([]), searchPage = ref(1), searchTotal = ref(0), searching = ref(false), searched = ref(false)

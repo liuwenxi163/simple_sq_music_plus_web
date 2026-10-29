@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><rect x="4" y="4" width="120" height="120" rx="29" fill="#243039"/><circle cx="64" cy="64" r="43" fill="none" stroke="#47636c" stroke-width="1"/><circle cx="64" cy="64" r="34" fill="none" stroke="#47636c" stroke-width="1"/><g fill="none" stroke="#a8d9d9" stroke-linecap="round" stroke-width="7"><path d="m43 43-8 40m30-46-8 40m30-34-8 40"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 96 96">
+  <title>Nook Music · Folded N and record</title>
+  <rect width="96" height="96" rx="26" fill="#25263e"/>
+  <circle cx="48" cy="48" r="40" fill="#171e30"/>
+  <g fill="none" stroke="#76799c" stroke-opacity=".48"><circle cx="48" cy="48" r="35.5"/><circle cx="48" cy="48" r="32.5"/></g>
+  <g transform="translate(10.8 10.8) scale(.775)">
+    <path fill="#c8d8f2" d="M23 68V32c0-5.5 4.5-10 10-10h7l21 30V28h12v36c0 5.5-4.5 10-10 10h-7L35 44v24Z"/>
+    <path fill="#88d8ce" d="M35 22h5l21 30v22h-5L35 44Z"/>
+  </g>
+  <circle cx="77" cy="20" r="4" fill="#88d8ce"/>
+</svg>

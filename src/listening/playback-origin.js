@@ -14,6 +14,12 @@ export const visualModes = [
   { id: 'curtain', label: '极光', detail: '纵向光幕，层层垂落', style: 1 },
   { id: 'stars', label: '星海', detail: '立体星流，随节拍穿行', style: 2 },
   { id: 'orbit', label: '声环', detail: '径向声纹，环绕封面', style: 3 },
+  { id: 'vinyl', label: '黑胶', detail: '唱片转动，唱针轻落', style: 4 },
+  { id: 'neon', label: '霓虹', detail: '穿行光隧，驶向节拍', style: 5 },
+  { id: 'terrain', label: '山海', detail: '暮色山峦，随声起伏', style: 6 },
+  { id: 'prism', label: '万花', detail: '棱镜折光，花瓣绽放', style: 7 },
+  { id: 'water', label: '潮汐', detail: '水纹交织，波光流动', style: 8 },
+  { id: 'ink', label: '纸墨', detail: '浅色纸面，水墨声纹', style: 9 },
   { id: 'still', label: '静谧', detail: '留下封面，安静听歌', style: 0 }
 ]
 export const validVisualMode = value => visualModes.some(mode => mode.id === value) ? value : 'aurora'

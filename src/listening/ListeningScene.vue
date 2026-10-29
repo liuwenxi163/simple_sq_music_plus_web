@@ -22,7 +22,8 @@ function draw(){
   if(props.mode==='aurora'){if(!flowTried){flowTried=true;flow=createFlow(lightCanvas.value)}gpu=!!flow?.draw(sample,palette,now);renderer.value=gpu?'react-bits-grainient':'canvas2d-liquid'}
   else if(props.mode==='curtain'){if(!auroraTried){auroraTried=true;aurora=createAurora(curtainCanvas.value)}gpu=!!aurora?.draw(sample,scenePalette('curtain',palette),'curtain',now);renderer.value=gpu?'aurora-curtain':'canvas2d-curtain'}
   else renderer.value=props.mode==='still'?'static-artwork':'canvas2d-'+sceneKinds[props.mode]
-  scene.draw(sample,palette,props.mode,layout,{now,gpu})
+  const visual=scene.draw(sample,palette,props.mode,layout,{now,gpu})
+  if(props.mode==='vinyl')canvas.value?.closest('.player-stage')?.style.setProperty('--record-angle',(visual?.rotation||0)+'rad')
   if(!sample.live){bassLevel.value=midLevel.value=highLevel.value=rawPeak.value=0}
   if(canvas.value)canvas.value.closest('.player-stage')?.style.setProperty('--sound-energy',String(sample.energy))
   return sample
@@ -79,4 +80,5 @@ defineExpose({activate,layout:resize})
 .listening-scene{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:oklch(12% .016 250)}.flow-light,.scene-geometry{position:absolute;width:100%;height:100%;inset:0}.curtain-light{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
 .scene-poster{position:absolute;inset:-20%;background-position:center;background-size:cover;filter:blur(90px) saturate(1.1);opacity:.1}.scene-shade{position:absolute;inset:0;background:linear-gradient(90deg,oklch(10% .012 250 / .05) 35%,oklch(10% .012 250 / .62) 78%),linear-gradient(oklch(10% .012 250 / .3),transparent 40%,oklch(10% .012 250 / .25))}
 [data-scene=stars] .scene-poster,[data-scene=spectrum] .scene-poster,[data-scene=orbit] .scene-poster{display:none}[data-scene=stars] .scene-shade{background:linear-gradient(90deg,transparent 35%,oklch(10% .02 265 / .48) 80%),linear-gradient(oklch(10% .02 265 / .12),transparent 75%,oklch(10% .02 265 / .4))}[data-scene=curtain] .scene-shade{background:linear-gradient(90deg,transparent 38%,oklch(10% .014 255 / .65) 85%),linear-gradient(transparent 65%,oklch(10% .014 255 / .5))}[data-scene=spectrum] .scene-shade{background:linear-gradient(oklch(9% .015 235 / .2),transparent 68%,oklch(9% .015 235 / .08))}[data-scene=still]{background:oklch(13% .008 250)}[data-scene=still] .scene-poster{opacity:.07}
+[data-scene=neon] .scene-shade,[data-scene=terrain] .scene-shade,[data-scene=prism] .scene-shade,[data-scene=water] .scene-shade{background:linear-gradient(90deg,transparent 30%,oklch(10% .02 260 / .74) 82%),linear-gradient(transparent 55%,oklch(10% .02 260 / .55))}[data-scene=ink] .scene-shade{background:linear-gradient(90deg,transparent 35%,oklch(94% .012 100 / .7) 85%)}[data-scene=ink] .scene-poster{display:none}
 </style>

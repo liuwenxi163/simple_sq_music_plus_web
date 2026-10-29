@@ -8,7 +8,7 @@ test('NAS badge requires the actual local stream path, not download history',()=
   assert.match(playbackOrigin({local:false,plugName:'qqvip'}).detail,/不会把音频保存到 NAS/)
 })
 test('visual mode preferences accept supported modes and recover from unknown old values',()=>{
-  assert.equal(visualModes.length,6)
+  assert.equal(visualModes.length,12)
   for(const mode of visualModes)assert.equal(validVisualMode(mode.id),mode.id)
   assert.equal(validVisualMode('unknown'),'aurora')
 })

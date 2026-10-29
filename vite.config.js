@@ -45,11 +45,11 @@ export default defineConfig({
         // 至少配置一个图标
         icons: [{
           // 注意如果应用不是部署在站点根目录则需要相对路径,图片文件放在项目/public/pwa/192x192.png
-          src: "/pwa/logo.png",
+          src: "/pwa/icon-192.png",
           sizes: "192x192",
           type: "image/png"
         }, {
-          src: "/pwa/logo.png",
+          src: "/pwa/icon-512.png",
           sizes: "512x512",
           type: "image/png"
         }]

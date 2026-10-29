@@ -43,7 +43,7 @@ Aurora is exclusive to the curtain, Grainient to the liquid field; the remaining
 
 ## Listening room refresh
 
-Cover-led library opening, real account playlist shelves, album-cover playlist headers and quieter download preferences extend the immersive player into browsing. No fabricated recommendations. Show actual NAS-file playback versus platform streaming. The visual scene picker previews six distinct modes without crowding the transport on phones. NOOK Music shares the inclined-stroke family mark while retaining its own record outline.
+Cover-led library opening, real account playlist shelves, album-cover playlist headers and quieter download preferences extend the immersive player into browsing. No fabricated recommendations. Show actual NAS-file playback versus platform streaming. The visual scene picker previews twelve distinct modes without crowding the transport on phones. NOOK Music shares the folded-N family mark while retaining its own record outline.
 
 ## Nook atmosphere and spacing
 
@@ -67,3 +67,9 @@ Use simple divided member rows, clear names and permission labels. Admin is visi
 ## Audio motion recovery
 
 The user reported no motion after the Aurora update. A running renderer and a live track are insufficient proof: require actual nonzero samples/frequency data. Rebind capture after source changes and resume. After persistent silence, attempt a fresh capture once, then a single isolated inaudible analysis element with the same authorized URL. The audible player remains independent. Display recovery/unavailable states honestly, never fake frequency movement. Retain stable cover/lyric layout, increase contour visibility and audio-driven Aurora movement so a valid signal is perceptible. Respect pause, hidden pages, static mode and reduced motion. Background frame throttling must not artificially slow elapsed shader time.
+
+## Twelve listening ateliers and folded-N identity
+
+The 2026-10-30 expansion adds a physical vinyl turntable with a real rotating label and tonearm, a blue/magenta perspective neon tunnel, seven dusk landscape ridges, twenty-four refractive petals, teal water caustics and a complete light paper/ink player. Each is an independent recipe in scene-ateliers.js and scene-recipes.js, driven by the same real audio sample and scene clock. Vinyl motion stops without live signal; ink includes dark transport, lyrics and source badges rather than merely a light background. Preserve the original six modes and stored IDs. The picker is four columns on desktop, three on phones and six on short landscape, with bounded scroll height.
+
+Replace the previous slashes with the folded-N vector family. The Nook main mark is the blue/teal folded N; the music variant adds a record and groove outline. Use the same SVG in navigation, the player and the Nook music entry, plus correctly sized 192/512 PWA icons and a cache-versioned favicon. Masters and the size comparison live in docs/brand. This design intentionally supersedes the older inclined-stroke mark.

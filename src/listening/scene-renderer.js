@@ -1,4 +1,5 @@
 import {scenePalette,createSceneClock,spectrumBars,starField,orbitShape} from './scene-model'
+import {drawAtelier} from './scene-ateliers'
 const rgba=(c,a)=>`rgba(${c.map(v=>Math.round(Math.min(1,v)*255)).join(',')},${a})`
 export function createScene(canvas){
  const ctx=canvas.getContext('2d');if(!ctx)return null
@@ -8,6 +9,7 @@ export function createScene(canvas){
   if(disposed||!l.width||!l.height)return
   const {width:w,height:h,cover}=l,p=scenePalette(mode,album),e=s.live?s.energy:0,b=s.live?s.bass:0,phase=clock.step(now,!!s.live&&mode!=='still',mode,mode==='stars'?.4+e*1.5+b*.6:1)
   textures(p);ctx.setTransform(canvas.width/w,0,0,canvas.height/h,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,w,h)
+  if(drawAtelier(ctx,s,mode,l,phase))return {rotation:phase*.3}
   const glow=(i,x,y,r,a)=>{ctx.globalAlpha=a;ctx.drawImage(lights[i],x-r,y-r,r*2,r*2);ctx.globalAlpha=1}
   if(mode==='aurora'){
    if(!gpu){ctx.fillStyle='rgb(12,20,31)';ctx.fillRect(0,0,w,h);for(let i=0;i<3;i++)glow(i,w*(.25+.27*i)+Math.sin(phase*.22+i)*w*.17,h*(.3+.18*i)+Math.cos(phase*.17+i)*h*.2,Math.max(w,h)*(.5+e*.12),.55+e*.2)}
