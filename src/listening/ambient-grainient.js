@@ -12,7 +12,7 @@ function toLab(hex) {
   return [.2104542553*l+.793617785*m-.0040720468*s,1.9779984951*l-2.428592205*m+.4505937099*s,.0259040371*l+.7827717662*m-.808675766*s]
 }
 
-// Original two-pass shader; a quiet radial field, silk lighting and pointer swirls off.
+// Original two-pass shader; a visibly flowing radial field, silk lighting and pointer swirls off.
 export function mountGrainient(canvas,{active=true}={}) {
   let gl,field,composite,vao,texture,framebuffer,raf=0,disposed=false,failed=false
   let running=active,last=0,previousDraw=0,time=1.2,fieldWidth=1,fieldHeight=1
@@ -60,7 +60,7 @@ export function mountGrainient(canvas,{active=true}={}) {
   function tick(now){
     raf=0;if(disposed||failed||!running||document.hidden||motion.matches)return
     if(!previousDraw||now-previousDraw>=1000/24){
-      const dt=last?Math.min((now-last)/1000,.12):0;last=now;previousDraw=now;time+=dt*.055;draw()
+      const dt=last?Math.min((now-last)/1000,.12):0;last=now;previousDraw=now;time+=dt*.65;draw()
     }
     raf=requestAnimationFrame(tick)
   }
@@ -93,7 +93,7 @@ export function mountGrainient(canvas,{active=true}={}) {
     framebuffer=gl.createFramebuffer();gl.useProgram(field.program)
     gl.uniform3fv(field.u.uRamp,ramp);gl.uniform1i(field.u.uCount,palette.length);gl.uniform1i(field.u.uType,1)
     gl.uniform2f(field.u.uDir,.819,.574);gl.uniform2f(field.u.uSeed,.8,2.1)
-    for(const [key,value] of Object.entries({uBands:1,uSoftness:1,uFlow:1.1,uScale:1.25,uSilk:0,uContrast:.96,uSaturation:.85,uSettle:1,uReveal:1}))gl.uniform1f(field.u[key],value)
+    for(const [key,value] of Object.entries({uBands:1,uSoftness:.9,uFlow:2,uScale:1.15,uSilk:0,uContrast:.96,uSaturation:.85,uSettle:1,uReveal:1}))gl.uniform1f(field.u[key],value)
     gl.uniform4fv(field.u.uStir,new Float32Array(96));gl.uniform1fv(field.u.uStirWeight,new Float32Array(24));gl.uniform4fv(field.u.uTwirl,new Float32Array(16))
     gl.useProgram(composite.program);gl.uniform1f(composite.u.uGrain,.025);gl.uniform1f(composite.u.uGrainSize,1.2);gl.uniform1f(composite.u.uFrame,0)
     failed=false;resize();resume()
