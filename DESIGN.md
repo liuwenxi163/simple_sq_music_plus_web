@@ -27,3 +27,7 @@ Solid primary actions, quiet secondary actions, consistent line icons and 44px t
 ## NOOK refinement
 
 The user specifically requested the finish of their NOOK app. Use its calm ink surfaces, precise fine borders, cool accents and subtle ambient depth, translated into a music player. In the expanded player only, album-derived ambient color and breathing cover motion serve immersion. Lyrics transition by opacity and transform, with restrained smooth scroll. Avoid decorative motion in task management pages. Mobile remains in scope after the user explicitly resumed it.
+
+## Immersive listening stage
+
+The user requested a substantial visual redesign, large album art and audio visual effects, explicitly welcoming shader rendering. The full player now has one signature effect: an album-colored fluid light field rendered with a WebGL fragment shader, responding to captured playback energy. A dedicated spectrum mode reads actual FFT values; static mode remains beautiful without GPU support. Large clean cover art and balanced lyric typography lead the stage, with a quiet full-width transport beneath. Desktop shows cover and lyrics together; phone switches between cover and lyrics with fixed accessible playback controls. Respect reduced motion, stop rendering on pause or hidden tabs, bound drawing-buffer size, and keep audio output independent of the analysis graph.
