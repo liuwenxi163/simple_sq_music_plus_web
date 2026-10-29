@@ -1,7 +1,7 @@
 import {test} from 'node:test'
 import assert from 'node:assert/strict'
 import {startVisualPlayback,createAudioAnalysis} from '../src/listening/audio-analysis.js'
-import {paletteFromPixels,defaultPalette} from '../src/listening/scene-shader.js'
+import {paletteFromPixels,defaultPalette} from '../src/listening/scene-palette.js'
 
 test('CORS failure reuses the authorized URL without requiring analysis for sound',async()=>{
  const seen=[];const audio={error:{code:4},load(){},pause(){},removeAttribute(name){assert.equal(name,'crossorigin');this.crossOrigin=null},play(){seen.push([this.src,this.crossOrigin]);if(this.crossOrigin)throw Object.assign(new Error('CORS blocked'),{name:'NotSupportedError'});return Promise.resolve()}}
