@@ -54,3 +54,7 @@ The listening scene targets up to 60 draws per second and starts with a 1.5-mill
 ## Member management
 
 Use simple divided member rows, clear names and permission labels. Admin is visibly marked as the default highest-privilege member. Creating members uses an inline form; resetting a password expands within the selected row. Profile opens from the sidebar identity, with own QQ/NetEase account rows, per-member QR status, clear disconnect and separate system management. Ordinary members cannot see global secrets or unavailable admin tools. Empty account and playlist states explain login without substituting another member's content.
+
+## Audio motion recovery
+
+The user reported no motion after the Aurora update. A running renderer and a live track are insufficient proof: require actual nonzero samples/frequency data. Rebind capture after source changes and resume. After persistent silence, attempt a fresh capture once, then a single isolated inaudible analysis element with the same authorized URL. The audible player remains independent. Display recovery/unavailable states honestly, never fake frequency movement. Retain stable cover/lyric layout, increase contour visibility and audio-driven Aurora movement so a valid signal is perceptible. Respect pause, hidden pages, static mode and reduced motion. Background frame throttling must not artificially slow elapsed shader time.

@@ -7,7 +7,7 @@ import { createAudioAnalysis } from './audio-analysis'
 import { createAudioFeatures } from './audio-features'
 const props=defineProps({audio:Object,cover:String,playing:Boolean,mode:{type:String,default:'aurora'}})
 const emit=defineEmits(['signal'])
-const canvas=ref(null),lightCanvas=ref(null),renderer=ref('css'),signal=ref('waiting'),frames=ref(0),fps=ref(0),drawMs=ref(0),bassLevel=ref(0),midLevel=ref(0),highLevel=ref(0)
+const canvas=ref(null),lightCanvas=ref(null),renderer=ref('css'),signal=ref('waiting'),frames=ref(0),fps=ref(0),drawMs=ref(0),bassLevel=ref(0),midLevel=ref(0),highLevel=ref(0),audioPath=ref('capture'),rawPeak=ref(0),audioClock=ref(0),recoveries=ref(0)
 const silence=createAudioFeatures()
 let scene,aurora,analysis,observer,frame=0,last=0,count=0,palette=defaultPalette.map(c=>[...c]),generation=0,disposed=false,reduce,budget=700000,windowStart=0,windowFrames=0,drawTotal=0,layout={}
 function status(value){if(signal.value!==value){signal.value=value;emit('signal',value)}}
@@ -18,7 +18,7 @@ function draw(){
   status(props.mode==='still'?'still':reduce?.matches?'reduced':!props.playing?'paused':sample.live?'live':sample.reason||'waiting')
   aurora?.draw(sample,palette,props.mode,performance.now())
   scene.draw(sample,palette,props.mode,layout)
-  if(!sample.live)bassLevel.value=midLevel.value=highLevel.value=0
+  if(!sample.live){bassLevel.value=midLevel.value=highLevel.value=rawPeak.value=0}
   if(canvas.value)canvas.value.closest('.player-stage')?.style.setProperty('--sound-energy',String(sample.energy))
   return sample
 }
@@ -37,6 +37,7 @@ function tick(now){
     last=now;const began=performance.now(),sample=draw();drawTotal+=performance.now()-began;count++;windowFrames++;if(!windowStart)windowStart=now
     if(now-windowStart>=1000){
       fps.value=Math.round(windowFrames*1000/(now-windowStart));frames.value=count;drawMs.value=Math.round(drawTotal/windowFrames*10)/10;drawTotal=0
+      audioPath.value=sample?.path||'none';rawPeak.value=Math.round((sample?.rawPeak||0)*10000)/10000;audioClock.value=Math.round((sample?.clock||0)*10)/10;recoveries.value=sample?.recoveries||0
       bassLevel.value=Math.round((sample?.bass||0)*100);midLevel.value=Math.round((sample?.mids||0)*100);highLevel.value=Math.round((sample?.highs||0)*100)
       if(drawMs.value>12&&budget>450000){budget=Math.max(450000,Math.round(budget*.75));resize()}
       windowStart=now;windowFrames=0
@@ -68,7 +69,7 @@ onMounted(()=>{
 onUnmounted(()=>{disposed=true;generation++;cancelAnimationFrame(frame);observer?.disconnect();scene?.dispose();aurora?.dispose();analysis?.dispose();reduce?.removeEventListener('change',refresh);document.removeEventListener('visibilitychange',refresh)})
 defineExpose({activate,layout:resize})
 </script>
-<template><div class="listening-scene" aria-hidden="true"><div class="scene-poster" :style="cover?{backgroundImage:`url(${JSON.stringify(cover)})`}:{}"></div><canvas ref="lightCanvas" class="aurora-light"></canvas><div class="scene-shade"></div><canvas ref="canvas" :data-renderer="renderer" :data-audio-signal="signal" :data-rendered-frames="frames" :data-render-fps="fps" :data-draw-ms="drawMs" :data-bass="bassLevel" :data-mids="midLevel" :data-highs="highLevel"></canvas></div></template>
+<template><div class="listening-scene" aria-hidden="true"><div class="scene-poster" :style="cover?{backgroundImage:`url(${JSON.stringify(cover)})`}:{}"></div><canvas ref="lightCanvas" class="aurora-light"></canvas><div class="scene-shade"></div><canvas ref="canvas" :data-renderer="renderer" :data-audio-signal="signal" :data-rendered-frames="frames" :data-render-fps="fps" :data-draw-ms="drawMs" :data-bass="bassLevel" :data-mids="midLevel" :data-highs="highLevel" :data-audio-path="audioPath" :data-audio-peak="rawPeak" :data-audio-clock="audioClock" :data-audio-recoveries="recoveries"></canvas></div></template>
 <style scoped>
 .listening-scene{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:oklch(12% .016 250)}.aurora-light{opacity:.85}.scene-shade{position:absolute;inset:0;background:linear-gradient(90deg,oklch(11% .014 250 / .08),oklch(11% .014 250 / .2) 42%,oklch(11% .014 250 / .58)),linear-gradient(oklch(11% .014 250 / .5),transparent 45%,oklch(11% .014 250 / .45))}.scene-poster{position:absolute;inset:-20%;background-position:center;background-size:cover;filter:blur(90px) saturate(1.2);opacity:.15}canvas{position:absolute;width:100%;height:100%;inset:0}
 </style>

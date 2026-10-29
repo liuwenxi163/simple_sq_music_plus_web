@@ -2,7 +2,7 @@ import { VERTEX, FRAGMENT, toOklch, unwrapHues } from '../vendor/react-bits/auro
 
 export function auroraResponse(s,mode){
   const live=s.live&&mode!=='still',e=live?s.energy:0,b=live?s.bass:0,h=live?s.highs:0
-  return {amplitude:.45+b*1.3,brightness:.52+e*.5,glow:.3+h*.45,pace:live?e*.5+b*.18:0,height:mode==='curtain'?.48:.34,opacity:mode==='spectrum'?.28:.62}
+  return {amplitude:.75+Math.sqrt(b)*2.4,brightness:.64+Math.sqrt(e)*.65,glow:.4+h*.75,pace:live ? .9+e*2+b*.8 : 0,height:mode==='curtain'?.48:.36,opacity:mode==='spectrum'?.4:.78}
 }
 export function createAurora(canvas){
   const gl=canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:true,antialias:false,depth:false,stencil:false,powerPreference:'low-power'});if(!gl)return null
@@ -18,8 +18,8 @@ export function createAurora(canvas){
     return {draw(s,colors,mode,now){
       if(disposed||lost)return false
       const stamp=colors.flat().join(',');if(stamp!==key){key=stamp;unwrapHues(colors.map(toOklch)).forEach((c,i)=>palette.set(c,i*3))}
-      const v=auroraResponse(s,mode),dt=last?Math.min(.06,Math.max(0,(now-last)/1000)):0;last=now;clock+=dt*v.pace
-      gl.viewport(0,0,canvas.width,canvas.height);gl.useProgram(program);gl.bindVertexArray(vao);gl.uniform2f(u.uResolution,canvas.width,canvas.height);gl.uniform1f(u.uTime,clock);gl.uniform3fv(u['uStops[0]'],palette);gl.uniform1i(u.uStopCount,3);gl.uniform1f(u.uAmplitude,v.amplitude);gl.uniform1f(u.uBlend,.9);gl.uniform1f(u.uHeight,v.height);gl.uniform1f(u.uScale,.7);gl.uniform1f(u.uGlow,v.glow);gl.uniform1f(u.uBrightness,v.brightness);gl.uniform1i(u.uLayers,2);gl.uniform1f(u.uFlip,1);gl.uniform3f(u.uPointer,0,.5,0);gl.uniform1f(u.uReveal,1);gl.uniform1f(u.uOpacity,mode==='still'?.2:v.opacity);gl.uniform1f(u.uLightMode,0);gl.drawArrays(gl.TRIANGLES,0,3);return true
+      const v=auroraResponse(s,mode),dt=v.pace&&last?Math.min(1,Math.max(0,(now-last)/1000)):0;last=v.pace?now:0;clock+=dt*v.pace
+      gl.viewport(0,0,canvas.width,canvas.height);gl.useProgram(program);gl.bindVertexArray(vao);gl.uniform2f(u.uResolution,canvas.width,canvas.height);gl.uniform1f(u.uTime,clock);gl.uniform3fv(u['uStops[0]'],palette);gl.uniform1i(u.uStopCount,3);gl.uniform1f(u.uAmplitude,v.amplitude);gl.uniform1f(u.uBlend,.65);gl.uniform1f(u.uHeight,v.height);gl.uniform1f(u.uScale,1.1);gl.uniform1f(u.uGlow,v.glow);gl.uniform1f(u.uBrightness,v.brightness);gl.uniform1i(u.uLayers,2);gl.uniform1f(u.uFlip,1);gl.uniform3f(u.uPointer,0,.5,0);gl.uniform1f(u.uReveal,1);gl.uniform1f(u.uOpacity,mode==='still'?.2:v.opacity);gl.uniform1f(u.uLightMode,0);gl.drawArrays(gl.TRIANGLES,0,3);return true
     },dispose}
   }catch{dispose();return null}
 }

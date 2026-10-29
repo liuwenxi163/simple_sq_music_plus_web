@@ -14,8 +14,8 @@ export function createScene(canvas){
     if(mode==='stars')for(let i=0;i<48;i++){const v=s.levels[i];ctx.fillStyle=rgba(palette[i%3],v*.65);ctx.beginPath();ctx.arc(((i*.618034)%1)*w,((i*.381966)%1)*h,.5+v,0,Math.PI*2);ctx.fill()}
     if(mode==='orbit'){
       const cx=cover.x+cover.width/2,cy=cover.y+cover.height/2
-      ctx.strokeStyle=rgba(palette[0],.15+s.energy*.35);ctx.lineWidth=1;ctx.beginPath()
-      for(let i=0;i<=128;i++){const a=i/128*Math.PI*2,r=cover.width*.74+s.levels[Math.min(63,Math.floor(i/2))]*15,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()
+      ctx.strokeStyle=rgba(palette[0],.38+s.energy*.45);ctx.lineWidth=1.8;ctx.beginPath()
+      for(let i=0;i<=128;i++){const a=i/128*Math.PI*2,r=cover.width*.74+Math.sqrt(s.levels[Math.floor(i/2)%64])*34,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();ctx.stroke();ctx.strokeStyle=rgba(palette[0],.05+s.bass*.08);ctx.lineWidth=9;ctx.stroke()
     }
   },dispose(){disposed=true}}
 }
