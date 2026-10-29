@@ -10,7 +10,10 @@ const paths = {
   repeat: 'M4 7h16l-4-4m4 4-4 4M20 17H4l4 4m-4-4 4-4', volume: 'm11 4-6 5H2v6h3l6 5zM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14',
   music: 'M9 18V5l12-2v13M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3m12-2a3 3 0 1 1-3-3 3 3 0 0 1 3 3',
   refresh: 'M20 7v5h-5M4 17v-5h5M5 7a8 8 0 0 1 14-2l1 2M4 17l1 2a8 8 0 0 0 14-2',
-  lyrics: 'M4 4h16v16H4zM8 9h8M8 13h8M8 17h4', arrow: 'M4 12h16m-6-6 6 6-6 6', plus: 'M12 4v16M4 12h16'
+  lyrics: 'M4 4h16v16H4zM8 9h8M8 13h8M8 17h4', arrow: 'M4 12h16m-6-6 6 6-6 6', plus: 'M12 4v16M4 12h16',
+  server: 'M4 3h16v7H4zM4 14h16v7H4zM8 6.5h.01M8 17.5h.01M12 6.5h5M12 17.5h5',
+  cloud: 'M7 19a5 5 0 0 1-1-9.9 7 7 0 0 1 13.4 1.5A4.3 4.3 0 0 1 18 19z',
+  spark: 'm12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z'
 }
 </script>
 <template><svg :width="size" :height="size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="paths[name] || paths.music" /></svg></template>

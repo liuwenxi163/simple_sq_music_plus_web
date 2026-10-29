@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { createScene, defaultPalette, paletteFromPixels } from './scene-shader'
 import { createAudioAnalysis } from './audio-analysis'
+import { visualModes } from './playback-origin'
 const props=defineProps({audio:Object,cover:String,playing:Boolean,mode:{type:String,default:'aurora'}})
 const emit=defineEmits(['signal'])
 const canvas=ref(null),renderer=ref('css'),signal=ref('ambient'),frames=ref(0),fps=ref(0)
@@ -18,7 +19,7 @@ function draw(){
   const sample=props.mode!=='still'&&!reduce?.matches&&props.playing?analysis?.sample()||{levels:zero,energy:0,live:false}:{levels:zero,energy:0,live:false}
   const next=sample.live&&props.playing?'live':props.playing?'ambient':'paused'
   if(signal.value!==next){signal.value=next;emit('signal',next)}
-  scene.draw(time,sample.energy,sample.levels,palette,props.mode==='spectrum'&&sample.live?1:0,band)
+  scene.draw(time,sample.energy,sample.levels,palette,props.mode==='spectrum'&&sample.live?1:0,band,visualModes.find(mode=>mode.id===props.mode)?.style||0)
 }
 function tick(now){
   frame=0;if(disposed||document.hidden||!props.playing||props.mode==='still'||reduce?.matches)return

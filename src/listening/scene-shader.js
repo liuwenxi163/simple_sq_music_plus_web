@@ -13,6 +13,7 @@ uniform vec2 u_resolution;
 uniform float u_time;
 uniform float u_energy;
 uniform float u_spectrum;
+uniform float u_style;
 uniform vec2 u_band;
 uniform vec3 u_colorA;
 uniform vec3 u_colorB;
@@ -36,6 +37,31 @@ void main(){
  col+=u_colorA*pow(max(0.0,1.0-abs(f-.49)*6.0),3.0)*silk*.12;
  float edge=1.0-smoothstep(.12,1.45,length((uv-.5)*vec2(1.0,.9)));
  col*=.3+edge*.7;
+ if(u_style>.5 && u_style<1.5){
+   float curtain=sin(p.x*3.0+fbm(p*.5+vec2(t*.3,0.0))*5.0+t)*.38;
+   float light=exp(-abs(p.y-curtain)*2.8);
+   float threads=pow(.5+.5*sin(p.x*13.0+q.x*4.0+t),5.0);
+   col=vec3(.018,.025,.035)+mix(u_colorB,u_colorC,uv.x)*light*(.3+threads*.3+u_energy*.2);
+   col+=u_colorA*exp(-abs(p.y+curtain*.65)*5.0)*.2;
+ }
+ if(u_style>1.5 && u_style<2.5){
+   col=vec3(.018,.022,.035)+pigment*(.1+silk*.11);
+   vec2 stars=p*8.0+vec2(t*.45,t*.2),cell=floor(stars);
+   for(int a=-1;a<=1;a++){for(int b=-1;b<=1;b++){
+     vec2 id=cell+vec2(float(a),float(b));float seed=hash(id);
+     vec2 point=id+vec2(seed,hash(id+19.0));float d=length(stars-point);
+     float sparkle=.45+.55*sin(u_time*.35+seed*24.0);
+     col+=mix(u_colorA,u_colorB,seed)*(.01/(d*d+.035))*step(.45,seed)*sparkle*(.11+u_energy*.18);
+   }}
+ }
+ if(u_style>2.5){
+   vec2 center=p-vec2(-.48,.04);float angle=atan(center.y,center.x);
+   float frequency=texture2D(u_audio,vec2((angle+3.14159)/6.28318,.5)).r;
+   float ring=abs(length(center)-(.64+frequency*.12));
+   col=vec3(.018,.023,.034)+pigment*(.1+silk*.14);
+   col+=mix(u_colorA,u_colorB,.5+.5*sin(angle+u_time*.12))*exp(-ring*60.0)*(.35+u_energy*.35);
+   col+=u_colorC*exp(-abs(length(center)-.94)*30.0)*.09;
+ }
  // A fine spectrum floats above the transport. Its heights come only from FFT data.
  float x=(uv.x-.09)/.82;
  float index=floor(x*64.0);
@@ -79,15 +105,16 @@ export function createScene(canvas) {
     if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error('Shader link failed')
     gl.useProgram(program);buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW)
     const position=gl.getAttribLocation(program,'a_position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0)
-    const uniforms=Object.fromEntries(['resolution','time','energy','spectrum','band','colorA','colorB','colorC','audio'].map(key=>[key,gl.getUniformLocation(program,'u_'+key)]))
+    const uniforms=Object.fromEntries(['resolution','time','energy','spectrum','style','band','colorA','colorB','colorC','audio'].map(key=>[key,gl.getUniformLocation(program,'u_'+key)]))
     texture=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture)
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE)
     const bytes=new Uint8Array(64)
     return {
-      draw(time,energy,levels,palette,spectrum,band=[.17,.04]){
+      draw(time,energy,levels,palette,spectrum,band=[.17,.04],style=0){
         if(gl.isContextLost())return
         gl.viewport(0,0,canvas.width,canvas.height);gl.useProgram(program)
         gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);gl.uniform1f(uniforms.time,time);gl.uniform1f(uniforms.energy,energy);gl.uniform1f(uniforms.spectrum,spectrum)
+        gl.uniform1f(uniforms.style,style)
         gl.uniform2f(uniforms.band,band[0],band[1]);gl.uniform3fv(uniforms.colorA,palette[0]);gl.uniform3fv(uniforms.colorB,palette[1]);gl.uniform3fv(uniforms.colorC,palette[2]);gl.uniform1i(uniforms.audio,0)
         for(let i=0;i<64;i++)bytes[i]=Math.round((levels[i]||0)*255)
         gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.LUMINANCE,64,1,0,gl.LUMINANCE,gl.UNSIGNED_BYTE,bytes);gl.drawArrays(gl.TRIANGLES,0,6)

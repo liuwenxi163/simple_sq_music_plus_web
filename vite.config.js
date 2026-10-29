@@ -35,8 +35,8 @@ export default defineConfig({
       strategies: 'generateSW',
       manifest: {
         // 安装应用后显示的应用名
-        name: "SqMusic",
-        short_name: "SqMusic",
+        name: "NOOK Music",
+        short_name: "NOOK Music",
         description: "音乐库、播放、下载与歌词",
         theme_color: "#171c24",
         background_color: "#171c24",

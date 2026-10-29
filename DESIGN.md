@@ -31,3 +31,7 @@ The user specifically requested the finish of their NOOK app. Use its calm ink s
 ## Immersive listening stage
 
 The user requested a substantial visual redesign, large album art and audio visual effects, explicitly welcoming shader rendering. The full player now has one signature effect: an album-colored fluid light field rendered with a WebGL fragment shader, responding to captured playback energy. A dedicated spectrum mode reads actual FFT values; static mode remains beautiful without GPU support. Large clean cover art and balanced lyric typography lead the stage, with a quiet full-width transport beneath. Desktop shows cover and lyrics together; phone switches between cover and lyrics with fixed accessible playback controls. Respect reduced motion, stop rendering on pause or hidden tabs, bound drawing-buffer size, and keep audio output independent of the analysis graph.
+
+## Listening room refresh
+
+Cover-led library opening, real account playlist shelves, album-cover playlist headers and quieter download preferences extend the immersive player into browsing. No fabricated recommendations. Show actual NAS-file playback versus platform streaming. The visual scene picker previews six distinct modes without crowding the transport on phones. NOOK Music shares the inclined-stroke family mark while retaining its own record outline.
