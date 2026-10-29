@@ -46,3 +46,5 @@ Use a single translucent recommendation stage and a quiet sidebar; ordinary song
 
 
 QQ recommendations have two explicit selectors: 每日推荐 and 猜你喜欢. Daily remains its actual date-based list; personal radio uses its separate authenticated source, supports 换一批, and shares the existing local-first playback, likes and cloud-playlist actions. Retain the current batch during refresh and report failures inline rather than erasing playable songs. Show actual count and a clear 30-second refresh cooldown.
+
+Playlist origins use a shared text badge with the complete platform name in the library shelf, playlist list and detail header; the phone selector includes the same name. Read the playlist's own source/provider or namespaced identity, never infer ownership from its songs. Explicit local playlists remain NAS 本地 even when they contain cloud tracks. Unknown sources are labelled honestly. Playlist kinds (likes, owned, collected) remain separate from platform identity.
